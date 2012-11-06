@@ -9,5 +9,5 @@ package bh2430;
  * @author rzysia
  */
 public class Game {
-    
+    static int dupa;
 }
