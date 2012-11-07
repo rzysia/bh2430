@@ -22,10 +22,13 @@ public class Army {
     //----------------------------------------------------------------------------------
     //                  metody
     
-    //konstruktor
+    //konstruktory
     //a to ilosc jednostek typu 1, b il jedn typu 2, c typu 3
-    public Army(int a, int b, int c)
+    public Army(int a, int b, int c) throws Exception
     {
+        if(a < 0 || b < 0 || c < 0)
+            throw new Exception("Ilosc jednostek nie może być ujemna!");
+        
         ilosc[0] = a;
         ilosc[1] = b;
         ilosc[2] = c;

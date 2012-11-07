@@ -28,12 +28,14 @@ public class Sector {
         // - wszystko jeszcze wyjdzie w praniu
     }
     
+    //produkcja, ofc dodaje wojsko do stacjonujacego juz garnizonu
     void produkuj() throws Exception
     {
         int ilosc = wzorNaProdukcje();
         Army wynik = new Army(ilosc, coProdukujeId);
+        wojsko.DodajWojsko(wynik);
     }
-
+    //wyliczenie ilosc produkowanych jednostek na podstawie ultra skomplikowanych wzorow matematycznych
     int wzorNaProdukcje() {
         int wspKonstelacji = 7;
         int produkcja = (int) (rozmiar * Math.round((Math.random()+1)*10)*  wspKonstelacji);

@@ -9,5 +9,8 @@ package bh2430;
  * @author rzysia
  */
 public class Game {
-    static int dupa;
+    //tutaj wszystko, co potrzebne do gry i co jest decydujace przy tworzeniu jej
+    //jeszcze ilosc graczy (i jakas ich lista), referencja do mapy, blablabla
+    int iloscSektorow;
+    Sector[] listaSektorow = new Sector[iloscSektorow];
 }
