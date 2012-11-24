@@ -29,7 +29,7 @@ import waitingroom.utilities.GButton;
  *
  * @author boroowa
  */
-public class WaitingRoomPanel1 extends javax.swing.JPanel {
+public class WaitingRoomPanel extends javax.swing.JPanel {
 
     /*
      * POLA KLASY
@@ -58,7 +58,7 @@ public class WaitingRoomPanel1 extends javax.swing.JPanel {
     /**
      * Tworzy ten panel i wylącza go gdy błąd
      */
-    public WaitingRoomPanel1() {
+    public WaitingRoomPanel() {
         super();
         
         this.setMaximumSize(new Dimension(800,600));
@@ -70,7 +70,7 @@ public class WaitingRoomPanel1 extends javax.swing.JPanel {
         
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        button = new GButton(200,100,200,60);
+        button = new GButton("Zacznij",200,100);
         this.add(button);
         
         button.repaint();
