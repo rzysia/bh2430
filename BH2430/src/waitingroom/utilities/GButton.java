@@ -64,7 +64,7 @@ public class GButton extends JComponent implements MouseListener, MouseMotionLis
         super();
         
         //ustawianie pol
-            this.x = x; this.y = y;
+            this.x = x; this.y = y - 50;
             this.w = 270; this.h = 100;
         
         //włączanie zdarzeń w oknie
@@ -158,8 +158,16 @@ public class GButton extends JComponent implements MouseListener, MouseMotionLis
 
     @Override
     public void mousePressed(MouseEvent e) {
-        button = this.buttonPressed;
-        repaint();
+        
+        if( (e.getLocationOnScreen().x <= this.x + this.w) &&
+                (e.getLocationOnScreen().x >= this.x) &&
+                (e.getLocationOnScreen().y >= this.y + 50) &&
+                (e.getLocationOnScreen().y <= this.y + this.h + 50)){
+            
+                    button = this.buttonPressed;
+                    repaint();
+                    
+        }
     }
 
     @Override
