@@ -4,7 +4,14 @@
  */
 package waitingroom;
 
+/**
+ *
+ * @author boroowa
+ */
+
+
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
@@ -15,13 +22,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import waitingroom.utilities.GButton;
 
 /**
  *
  * @author boroowa
  */
-public class WaitingRoomPanel extends javax.swing.JPanel {
+public class WaitingRoomPanel1 extends javax.swing.JPanel {
 
     /*
      * POLA KLASY
@@ -32,6 +40,17 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
     
     private Graphics2D g2d;
     
+    /*
+     * Przyciski
+     */
+    
+    private GButton button;
+    
+    /**
+     * Pobiera powierzchnię
+     * @return Graphics2D
+     */
+    
     public Graphics2D getSurface(){
         return this.g2d;
     }
@@ -39,14 +58,23 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
     /**
      * Tworzy ten panel i wylącza go gdy błąd
      */
-    public WaitingRoomPanel() {
-        initComponents();
+    public WaitingRoomPanel1() {
+        super();
+        
+        this.setMaximumSize(new Dimension(800,600));
+        this.setMaximumSize(new Dimension(800,600));
         
         if(!this.loadFonts()){
             System.exit(1);
         }
         
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
+        button = new GButton(200,100,200,60);
+        this.add(button);
         
+        button.repaint();
+        //addComponent(button);
     }
     
     /**
@@ -102,32 +130,11 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
         
         
         g2d.setColor(Color.GREEN);
-        Rectangle2D a = new Rectangle2D.Double(100,100,200,60);
+        //Rectangle2D a = new Rectangle2D.Double(0,200,200,60);
 
         g2d.setFont(font_normal.deriveFont(62.0f));
         g2d.setColor(Color.GREEN);
         g2d.drawString("POCZEKALNIA",20,80);
-        g2d.draw(a);
-}
-
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        setMaximumSize(new java.awt.Dimension(800, 600));
-        setMinimumSize(new java.awt.Dimension(800, 600));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
-    }// </editor-fold>//GEN-END:initComponents
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+        //g2d.draw(a);
+    }
 }
