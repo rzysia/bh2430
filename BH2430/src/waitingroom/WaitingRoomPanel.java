@@ -4,6 +4,9 @@
  */
 package waitingroom;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
@@ -12,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import waitingroom.utilities.GButton;
 
 /**
  *
@@ -22,17 +26,30 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
     /*
      * POLA KLASY
      */
+    private Font font_normal;
+    private Font font_bold;
+    private Font font_italic;
     
     private Graphics2D g2d;
     
+    public Graphics2D getSurface(){
+        return this.g2d;
+    }
+    
     /**
-     * Tworzy ten panel
+     * Tworzy ten panel i wylącza go gdy błąd
      */
     public WaitingRoomPanel() {
         initComponents();
+        
+        if(!this.loadFonts()){
+            System.exit(1);
+        }
+        
+        
     }
     
-    /*
+    /**
      * Funkcja ta rysuje tło poczekalni
      */
     
@@ -40,12 +57,34 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
         
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("./bh2430/graphics/WaitingRoomGraphics/waitingroom.png"));
+            img = ImageIO.read(new File("./graphics/WaitingRoomGraphics/waitinroom.png"));
         } catch (IOException e) {
             System.out.println("Problem with loading PNG background");
+            return;
         }
 
         g2d.drawImage(img, 0, 0, this);
+    }
+    
+    /**
+     * Funkcja ta wczytuje czcionki użyteczne przy panelu!
+     */
+    
+    private boolean loadFonts(){
+        
+        try {
+            
+             font_normal = Font.createFont(Font.TRUETYPE_FONT, new File("./fonts/D3Euronism.ttf"));
+             font_italic = Font.createFont(Font.TRUETYPE_FONT, new File("./fonts/D3Euronism_i.ttf"));
+             font_bold = Font.createFont(Font.TRUETYPE_FONT, new File("./fonts/D3Euronism_b.ttf"));
+             
+        } catch (IOException|FontFormatException e) {
+             System.out.println("Cannot read True Type Font files!");
+             return false;
+        }
+        
+        return true; 
+        
     }
 
     /**
@@ -57,10 +96,19 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        
         g2d = (Graphics2D) g;
         drawBackground();
-    }
+        
+        
+        g2d.setColor(Color.GREEN);
+        Rectangle2D a = new Rectangle2D.Double(100,100,200,60);
 
+        g2d.setFont(font_normal.deriveFont(62.0f));
+        g2d.setColor(Color.GREEN);
+        g2d.drawString("POCZEKALNIA",20,80);
+        g2d.draw(a);
+}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
