@@ -12,6 +12,7 @@ public class GInformationContainer {
     
     public GButtonGraphics buttonsGraphics;
     public GFonts fonts;
+    public GWaitingRoomGraphics waitingRoomGraphics;
     
     public GInformationContainer(){
         this.buttonsGraphics = new GButtonGraphics();
