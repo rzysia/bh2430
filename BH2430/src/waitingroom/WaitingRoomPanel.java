@@ -24,6 +24,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import waitingroom.utilities.GButton;
+import waitingroom.utilities.GPlayerIcon;
 
 /**
  *
@@ -45,6 +46,10 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
      */
     
     private GButton button;
+    private GButton button2;
+    private GButton button3;
+    private GPlayerIcon button4;
+    private GPlayerIcon button5;
     
     /**
      * Pobiera powierzchnię
@@ -68,12 +73,18 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
             System.exit(1);
         }
         
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setLayout(null);
 
-        button = new GButton("Zacznij",200,100);
-        this.add(button);
+        button = new GButton(200,100);
+        button2 = new GButton(300, 200);
         
-        button.repaint();
+        this.add(button);
+        this.add(button2);
+        //this.add(button3);PlayerIconutton
+        //this.add(button4);
+        //this.add(button5);
+        
+        //button.repaint();
         //addComponent(button);
     }
     
