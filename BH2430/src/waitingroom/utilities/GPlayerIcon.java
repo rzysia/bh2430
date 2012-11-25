@@ -30,7 +30,7 @@ public class GPlayerIcon extends JComponent{
     
     private Graphics2D g2d;
     
-    GPlayerIcon(int x, int y){
+    public GPlayerIcon(int x, int y){
         super();
         
         this.x = x; this.y = y - 50;

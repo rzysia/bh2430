@@ -67,18 +67,12 @@ public class GButton extends JComponent implements MouseListener, MouseMotionLis
             
             this.setBounds(x, y, w, h);
             
-            //this.setOpaque(true);
-            this.setForeground(Color.GREEN);
-            this.setBackground(Color.red);
-            
             this.setPreferredSize(new Dimension(w,h));
         
         //włączanie zdarzeń w oknie
             enableInputMethods(true);   
             addMouseListener(this);
             addMouseMotionListener(this);
-      
-            setVisible(true);
     }
     
     @Override
@@ -105,19 +99,18 @@ public class GButton extends JComponent implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseReleased(MouseEvent e) {
-       //TODO
     }
     
     @Override
     public void mouseEntered(MouseEvent e) {
-        color = Color.red;
-        repaint();
+       color = Color.RED;
+       repaint();
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        color = Color.GREEN;
-        repaint();
+       color = Color.GRAY;
+       repaint();
     }
 
     @Override

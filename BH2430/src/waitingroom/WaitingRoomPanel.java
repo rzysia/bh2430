@@ -24,6 +24,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import waitingroom.utilities.GButton;
+import waitingroom.utilities.GInformationContainer;
 import waitingroom.utilities.GPlayerIcon;
 
 /**
@@ -35,30 +36,12 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
     /*
      * POLA KLASY
      */
-    private Font font_normal;
-    private Font font_bold;
-    private Font font_italic;
-    
-    private Graphics2D g2d;
-    
-    /*
-     * Przyciski
-     */
+
+    GInformationContainer ginfo;
     
     private GButton button;
     private GButton button2;
-    private GButton button3;
-    private GPlayerIcon button4;
-    private GPlayerIcon button5;
-    
-    /**
-     * Pobiera powierzchnię
-     * @return Graphics2D
-     */
-    
-    public Graphics2D getSurface(){
-        return this.g2d;
-    }
+
     
     /**
      * Tworzy ten panel i wylącza go gdy błąd
@@ -66,64 +49,58 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
     public WaitingRoomPanel() {
         super();
         
-        this.setMaximumSize(new Dimension(800,600));
-        this.setMaximumSize(new Dimension(800,600));
+        //zmienianie wielkości okna
+            this.setMaximumSize(new Dimension(800,600));
+            this.setMaximumSize(new Dimension(800,600));
         
-        if(!this.loadFonts()){
-            System.exit(1);
-        }
+        //ustawienie layoutu
+            setLayout(null);
         
-        setLayout(null);
+        //wczytywanie danych
+            try { loadingInformation(); }
+            catch (Exception e) {
+                System.out.println("Problem with loading, aborted;");
+                //System.exit(-1);
+            }
 
-        button = new GButton(200,100);
-        button2 = new GButton(300, 200);
+            button = new GButton(200,100);
+        //button2 = new GButton(300, 200);
         
-        this.add(button);
-        this.add(button2);
-        //this.add(button3);PlayerIconutton
-        //this.add(button4);
-        //this.add(button5);
-        
-        //button.repaint();
-        //addComponent(button);
+            this.add(button);
     }
     
     /**
-     * Funkcja ta rysuje tło poczekalni
+     * Wczytuje dane, jeżeli ich nie wyczyta, to wtedy rzuca śliwką
+     * @throws Exception 
      */
-    
-    private void drawBackground(){
+    private void loadingInformation() throws Exception{
         
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("./graphics/WaitingRoomGraphics/waitinroom.png"));
-        } catch (IOException e) {
-            System.out.println("Problem with loading PNG background");
-            return;
-        }
-
-        g2d.drawImage(img, 0, 0, this);
-    }
-    
-    /**
-     * Funkcja ta wczytuje czcionki użyteczne przy panelu!
-     */
-    
-    private boolean loadFonts(){
+        //stworzenie pojemnika na dane
+            ginfo = new GInformationContainer();
         
-        try {
+        //wczytujemy fonty
+            try{
+                ginfo.fonts.setNormalFont("./fonts/D3Euronism.ttf");
+                //ginfo.fonts.setBoldFont("./fonts/D3Euronism_b.ttf");
+                //ginfo.fonts.setItalicFont("./fonts/D3Euronism_i.ttf");
+            } catch (Exception e) {
+                System.out.println("Problem with fonts");
+            }
+        //wczytujemy grafiki dotyczące przycisków
+            try{
+                //ginfo.buttonsGraphics.setGraphics(  "./graphics/MainMenu/unpress_button.png", 
+                //                                    "./graphics/MainMenu/over_button.png", 
+                //                                    "./graphics/MainMenu/press_button.png");
+            } catch (Exception e) {
+                System.out.println("Problem with graphics");
+            }
             
-             font_normal = Font.createFont(Font.TRUETYPE_FONT, new File("./fonts/D3Euronism.ttf"));
-             font_italic = Font.createFont(Font.TRUETYPE_FONT, new File("./fonts/D3Euronism_i.ttf"));
-             font_bold = Font.createFont(Font.TRUETYPE_FONT, new File("./fonts/D3Euronism_b.ttf"));
-             
-        } catch (IOException|FontFormatException e) {
-             System.out.println("Cannot read True Type Font files!");
-             return false;
-        }
-        
-        return true; 
-        
+    }
+   
+    
+    @Override 
+    public Dimension getPreferredSize(){
+        return new Dimension(800,600);
     }
 
     /**
@@ -134,18 +111,25 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
     
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
         
-        g2d = (Graphics2D) g;
-        drawBackground();
+        //umożliwienie rysowania po powierzchni 2d
+            super.paintComponent(g);
+            Graphics2D g2d;
+            g2d = (Graphics2D) g;
         
+            BufferedImage bg = null;
+        //wczytanie tła
+            try{
+                bg = ImageIO.read(new File("./graphics/WaitingRoomGraphics/waitinroom.png"));
+            } catch (Exception e) {
+                System.out.println("Problem with read PNG background file");
+                System.exit(-1);
+            }
+     
+            g2d.setFont(ginfo.fonts.getNormal().deriveFont(48.0f));
+            g2d.setColor(Color.GREEN);
+            g2d.drawImage(bg, 0, 0, this);
+            g2d.drawString("POCZEKALNIA",20,80);
         
-        g2d.setColor(Color.GREEN);
-        //Rectangle2D a = new Rectangle2D.Double(0,200,200,60);
-
-        g2d.setFont(font_normal.deriveFont(62.0f));
-        g2d.setColor(Color.GREEN);
-        g2d.drawString("POCZEKALNIA",20,80);
-        //g2d.draw(a);
     }
 }
