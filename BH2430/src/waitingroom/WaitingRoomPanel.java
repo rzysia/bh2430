@@ -12,20 +12,12 @@ package waitingroom;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import waitingroom.utilities.GButton;
 import waitingroom.utilities.GInformationContainer;
-import waitingroom.utilities.GPlayerIcon;
+import waitingroom.utilities.GWaitingRoomGraphics;
 
 /**
  *
@@ -36,6 +28,8 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
     /*
      * POLA KLASY
      */
+    
+    Graphics2D g2d;
 
     GInformationContainer ginfo;
     
@@ -64,13 +58,15 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
             }
 
         //dodawanie badziewia na widok
-            button = new GButton(200,100, ginfo);
-            button2 = new GButton(300, 200, ginfo);
+            button = new GButton(490,500, ginfo);
+            button2 = new GButton(20, 500, ginfo);
             
             button.setText("Zacznij");
+            button2.setText("Cofnij");
         
             this.add(button);
             this.add(button2);
+            
     }
     
     /**
@@ -99,6 +95,10 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
             } catch (Exception e) {
                 System.out.println("Problem with graphics");
             }
+            
+        //wczytujemy pliki potrzebne do wyświetlania okna poczekalni
+            
+            ginfo.waitingRoomGraphics = new GWaitingRoomGraphics();
             
     }
    
@@ -129,23 +129,79 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
         
         //umożliwienie rysowania po powierzchni 2d
             super.paintComponent(g);
-            Graphics2D g2d;
             g2d = (Graphics2D) g;
         
-            BufferedImage bg = null;
+            BufferedImage bg = ginfo.waitingRoomGraphics.getBackground();
+          
             
-        //wczytanie tła
-            try{
-                bg = ImageIO.read(new File("./graphics/WaitingRoomGraphics/waitinroom.png"));
-            } catch (Exception e) {
-                System.out.println("Problem with read PNG background file");
-                System.exit(-1);
-            }
-     
-            g2d.setFont(ginfo.fonts.getNormal().deriveFont(48.0f));
-            g2d.setColor(Color.GREEN);
-            g2d.drawImage(bg, 0, 0, this);
-            g2d.drawString("POCZEKALNIA",20,80);
+            //g2d.drawImage(ginfo.waitingRoomGraphics.img, 100, 100, this);
+            
         
+        //wczytanie tła
+            g2d.drawImage(bg, 0, 0, this);
+           
+            
+         //rysowanie nagłowka
+            drawTitle();
+            
+         //rysowanie centralnego okna
+            drawCentralWindow();
+        
+    }
+    
+    private void drawCentralWindow(){
+        
+        for(int i = 0; i < 14; i++){
+            g2d.drawImage(ginfo.waitingRoomGraphics.getTopMiddle(), 40 * i + 120, 160, this);
+        }  
+        
+        for(int i = 0; i < 14; i++){
+            g2d.drawImage(ginfo.waitingRoomGraphics.getBottomMiddle(), 40 * i + 120, 40 * 6 + 200, this);
+        }
+        
+        for(int i = 0; i < 6; i++){
+            g2d.drawImage(ginfo.waitingRoomGraphics.getMiddleLeft(), 80, 40 * i + 200, this);
+        }
+        
+        for(int i = 0; i < 6; i++){
+            g2d.drawImage(ginfo.waitingRoomGraphics.getMiddleRight(), 120 + 14 * 40, 40 * i + 200, this);
+        }
+        
+        for(int i = 0; i < 14; i++){
+                for(int j = 0; j < 6; j++){
+                    g2d.drawImage(ginfo.waitingRoomGraphics.getMiddleMiddle(), 40 * i + 120, 40 * j + 200, this);
+                }
+           }
+        
+        g2d.drawImage(ginfo.waitingRoomGraphics.getTopLeft(), 80, 160, this);
+        
+        g2d.drawImage(ginfo.waitingRoomGraphics.getTopRight(), 120 + 40 * 14, 160, this);
+        
+        g2d.drawImage(ginfo.waitingRoomGraphics.getBottomLeft(), 80, 40 * 6 + 200, this);
+        
+        g2d.drawImage(ginfo.waitingRoomGraphics.getBottomRight(), 120 + 40 * 14, 40 * 6 + 200, this);
+    }
+    
+    private void drawTitle(){
+        
+           for(int i = 0; i < 12; i++){
+                for(int j = 0; j < 2; j++){
+                    g2d.drawImage(ginfo.waitingRoomGraphics.getMiddleMiddle(), 40*i, 40*j, this);
+                }
+           }
+           
+           for(int i = 0; i < 12; i++){
+               g2d.drawImage(ginfo.waitingRoomGraphics.getBottomMiddle(), 40*i, 40*2, this);
+           }
+           
+           for(int i = 0; i < 2; i++){
+               g2d.drawImage(ginfo.waitingRoomGraphics.getMiddleRight(), 40*12, 40*i, this);
+           }
+           
+           g2d.drawImage(ginfo.waitingRoomGraphics.getBottomRight(), 40*12, 40*2, this);
+           
+           g2d.setFont(ginfo.fonts.getNormal().deriveFont(48.0f));
+           g2d.setColor(Color.GREEN);
+           g2d.drawString("POCZEKALNIA",20,80);
     }
 }
