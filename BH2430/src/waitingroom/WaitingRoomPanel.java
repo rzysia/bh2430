@@ -17,6 +17,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import waitingroom.utilities.GButton;
 import waitingroom.utilities.GInformationContainer;
+import waitingroom.utilities.GPlayerIcon;
 import waitingroom.utilities.GWaitingRoomGraphics;
 
 /**
@@ -35,6 +36,8 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
     
     private GButton button;
     private GButton button2;
+    
+    private GPlayerIcon playerIcon[];
 
     
     /**
@@ -55,6 +58,20 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
             catch (Exception e) {
                 System.out.println("Problem with loading, aborted;");
                 System.exit(-1);
+            }
+        
+        //zrobienie ikon graczy
+            
+            this.playerIcon = new GPlayerIcon[6];
+            
+            for(int i = 0; i < 3; i++){
+                playerIcon[i] = new GPlayerIcon(410, 180 + i * 100, ginfo);
+                this.add(playerIcon[i]);
+            }
+            
+            for(int i = 0; i < 3; i++){
+                playerIcon[i] = new GPlayerIcon(90, 180 + i * 100, ginfo);
+                this.add(playerIcon[i]);
             }
 
         //dodawanie badziewia na widok
@@ -93,7 +110,15 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
                                                     "./graphics/MainMenu/over_button.png", 
                                                     "./graphics/MainMenu/press_button.png");
             } catch (Exception e) {
-                System.out.println("Problem with graphics");
+                System.out.println("Problem with button graphics");
+            }
+            
+        //wczytujemy grafiki dotyczące przycisków
+            try{
+                ginfo.playerIconGraphics.setEmptyGraphics("./graphics/WaitingRoomGraphics/grzaczNieaktywowany.png");
+                ginfo.playerIconGraphics.setUsedGraphics("./graphics/WaitingRoomGraphics/graczAktywowany.png");
+            } catch (Exception e) {
+                System.out.println("Problem with player icon graphics");
             }
             
         //wczytujemy pliki potrzebne do wyświetlania okna poczekalni
@@ -173,13 +198,11 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
                 }
            }
         
-        g2d.drawImage(ginfo.waitingRoomGraphics.getTopLeft(), 80, 160, this);
-        
-        g2d.drawImage(ginfo.waitingRoomGraphics.getTopRight(), 120 + 40 * 14, 160, this);
-        
-        g2d.drawImage(ginfo.waitingRoomGraphics.getBottomLeft(), 80, 40 * 6 + 200, this);
-        
+        g2d.drawImage(ginfo.waitingRoomGraphics.getTopLeft(), 80, 160, this);    
+        g2d.drawImage(ginfo.waitingRoomGraphics.getTopRight(), 120 + 40 * 14, 160, this);       
+        g2d.drawImage(ginfo.waitingRoomGraphics.getBottomLeft(), 80, 40 * 6 + 200, this);        
         g2d.drawImage(ginfo.waitingRoomGraphics.getBottomRight(), 120 + 40 * 14, 40 * 6 + 200, this);
+        
     }
     
     private void drawTitle(){
