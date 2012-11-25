@@ -2,7 +2,7 @@
  *@author
  *  Przemysław Malinowski
  * @version
- *  0.0.1
+ *  0.0.5
  * 
  * Klasa przycisku graficznego, bazowany na JButton
  */
@@ -42,23 +42,13 @@ public class GButton extends JComponent implements MouseListener, MouseMotionLis
     
     private int x, y , w , h;
     
-    private Rectangle2D rect;
-    private Color color;
+    private GInformationContainer ginfo;
     
-    private BufferedImage button = null;
+    private String text = "";
     
-    private BufferedImage buttonOver = null;
-    private BufferedImage buttonPressed = null;
-    private BufferedImage buttonNormal = null;
+    private BufferedImage button;
     
-    private String text;
-    
-    private Font font;
-    /*
-     * FUNKCJE
-     */
-    
-    public GButton(int x, int y){
+    public GButton(int x, int y, GInformationContainer ginfo){
         super();
         
         //ustawianie pol
@@ -73,18 +63,35 @@ public class GButton extends JComponent implements MouseListener, MouseMotionLis
             enableInputMethods(true);   
             addMouseListener(this);
             addMouseMotionListener(this);
+       
+        //pobranie informacjów plikowych
+            this.ginfo = ginfo;
+         
+        //ustawienie podstawowej grafiki
+            button = ginfo.buttonsGraphics.getNormal();
+            
     }
     
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         
-        Graphics2D g2d;
+        Graphics2D g2d = (Graphics2D) g;
         
-        g2d = (Graphics2D) g; 
-        g2d.setColor(color);
-        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g2d.drawImage(button, 0, 0, this);
         
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(ginfo.fonts.getNormal().deriveFont(32.0f));
+        g2d.drawString(text, 70, 50);
+        
+    }
+    
+    /**
+     * Zmienia tekst w przycisku
+     * @param text 
+     */
+    public void setText(String text){
+        this.text = text;
     }
     
     @Override
@@ -94,23 +101,26 @@ public class GButton extends JComponent implements MouseListener, MouseMotionLis
 
     @Override
     public void mousePressed(MouseEvent e) {
-        //TODO
+        button = ginfo.buttonsGraphics.getPress();
+        repaint();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        button = ginfo.buttonsGraphics.getNormal();
+        repaint();
     }
     
     @Override
     public void mouseEntered(MouseEvent e) {
-       color = Color.RED;
-       repaint();
+        button = ginfo.buttonsGraphics.getOver();
+        repaint();
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-       color = Color.GRAY;
-       repaint();
+        button = ginfo.buttonsGraphics.getNormal();
+        repaint();
     }
 
     @Override
