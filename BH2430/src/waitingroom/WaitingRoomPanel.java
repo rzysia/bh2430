@@ -60,13 +60,17 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
             try { loadingInformation(); }
             catch (Exception e) {
                 System.out.println("Problem with loading, aborted;");
-                //System.exit(-1);
+                System.exit(-1);
             }
 
-            button = new GButton(200,100);
-        //button2 = new GButton(300, 200);
+        //dodawanie badziewia na widok
+            button = new GButton(200,100, ginfo);
+            button2 = new GButton(300, 200, ginfo);
+            
+            button.setText("Zacznij");
         
             this.add(button);
+            this.add(button2);
     }
     
     /**
@@ -81,16 +85,17 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
         //wczytujemy fonty
             try{
                 ginfo.fonts.setNormalFont("./fonts/D3Euronism.ttf");
-                //ginfo.fonts.setBoldFont("./fonts/D3Euronism_b.ttf");
-                //ginfo.fonts.setItalicFont("./fonts/D3Euronism_i.ttf");
+                ginfo.fonts.setBoldFont("./fonts/D3Euronism_b.ttf");
+                ginfo.fonts.setItalicFont("./fonts/D3Euronism_i.ttf");
             } catch (Exception e) {
                 System.out.println("Problem with fonts");
             }
+            
         //wczytujemy grafiki dotyczące przycisków
             try{
-                //ginfo.buttonsGraphics.setGraphics(  "./graphics/MainMenu/unpress_button.png", 
-                //                                    "./graphics/MainMenu/over_button.png", 
-                //                                    "./graphics/MainMenu/press_button.png");
+                ginfo.buttonsGraphics.setGraphics(  "./graphics/MainMenu/unpress_button.png", 
+                                                    "./graphics/MainMenu/over_button.png", 
+                                                    "./graphics/MainMenu/press_button.png");
             } catch (Exception e) {
                 System.out.println("Problem with graphics");
             }
@@ -100,6 +105,16 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
     
     @Override 
     public Dimension getPreferredSize(){
+        return new Dimension(800,600);
+    }
+    
+    @Override 
+    public Dimension getMinimumSize(){
+        return new Dimension(800,600);
+    }
+    
+    @Override 
+    public Dimension getMaximumSize(){
         return new Dimension(800,600);
     }
 
@@ -118,6 +133,7 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
             g2d = (Graphics2D) g;
         
             BufferedImage bg = null;
+            
         //wczytanie tła
             try{
                 bg = ImageIO.read(new File("./graphics/WaitingRoomGraphics/waitinroom.png"));
