@@ -1,0 +1,28 @@
+PRZECZYTAJ MNIE ZANIM COKOLWIEK MI ZROBISZ ZŁEGO!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+by Przemysław I Malinowski:
+
+TO jest główny projekt, i tutaj znajduje się cały kod naszej pracy zespołowej
+
+1.  HAŁ TU oraz BĄ TĄ przy pracy z naszym kodem:
+
+    - w paczce "bh2430" znajduje się KOD OKNA GŁÓWNEGO. Raczej się nie baw, korzystaj z formatki
+      JForm w własnej paczce.
+
+    - każdy niech na początku stworzy sobię własną paczkę i nazwie ją w jakiś normalny sposób
+      <po angielsku ofc>
+
+    - w tej paczce należy stworzyć nowy obiekt JPanel, który będzie kontenerem i powierzchnią
+      do rysowania po niej. Najlepiej gdyby miały nazwę ?<NAZWA_PACZKI + "Panel">
+
+    - Proszę, używaj przed każdą fukcją komentarza i nazywaj normalnie funckje wTakiSposóbPoAngielsku
+      komentarze nie bolą, a ułatwiają pisanie, jak ktoś chce skorzystać z Twojego tworu
+
+    - NIE POWIELAJ i możliwie NIE PISZ bezmyślnie. Może się okazać, że istnieją rozwiązania <czy to
+      w projekcie, czy w samej Javie>, dzięki którym zamiast pisać kod w Postaci "Potopu" Sienkiewicza
+      napiszesz całkiem zgrabny wierszyk z paru strof.
+
+    - Nawet nie staraj się niszczyć czyjejś pracy, bo to i tak Wielki GitHub widzi.
+
+To tyle z mojej strony :)
