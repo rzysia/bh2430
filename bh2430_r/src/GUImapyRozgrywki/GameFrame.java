@@ -5,16 +5,15 @@
 package GUImapyRozgrywki;
 
 import Engine.*;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -24,112 +23,110 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author rzysia
  */
-public class OknoRozgrywki extends JFrame implements MouseListener{
+public class GameFrame extends JPanel implements MouseListener{
     
-    static Game gra;
+    static Game game;
     
-    private Tlo tlo;
     private JLayeredPane layer;
     private ImageIcon miniMapa;
-    private ImageIcon koniecTuryN;
-    private ImageIcon koniecTuryA;
-    private ImageIcon kartyN;
-    private ImageIcon kartyA;
+    private ImageIcon endTurnU;
+    private ImageIcon endTurnA;
+    private ImageIcon cardsU;
+    private ImageIcon cardsA;
     
     //label do kazdej grafiki, pieknie :/
     private JLabel L_miniMap;//minimapa
-    private JLabel L_koniecTuryN;//koniecTuryN
-    private JLabel L_kartyN;//kartyN
-    private JLabel L_koniecTuryA;//koniecTuryA
-    private JLabel L_kartyA;//kartyA
+    private JLabel L_endTurnN;//koniecTuryN
+    private JLabel L_cardsU;//kartyN
+    private JLabel L_endTurnA;//koniecTuryA
+    private JLabel L_cardsA;//kartyA
     private JLabel L_etap;  //tu będzie napisane który L_etap właśnie mamy
-    private JLabel L_listaSektorow;
+    private JLabel L_sectorList;
     private JLabel L_info;
     
-    private JList lista;
+    Color listSectCol;
+    
+    private JList list;
     
     private JScrollPane sp;
     
     //String, w którym będzie przechowywany tekst z napisu pod mapą
-    String etap = "dupa";
-    Font akt;
+    String etap = "";
+    Font act;
     
     //AKTUALNY GRACZ, KTORY ROBI TURE
-    Player aktualnyGracz;
+    Player currentPlayer;
     
-    public OknoRozgrywki()
+    public GameFrame()
     {
-        super("TEST");
-        this.setSize(1024, 768);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().setLayout(new BorderLayout());
-        
         this.addMouseListener(this);
-        
+        this.setLayout(null);
         
         miniMapa = new ImageIcon(getClass().getResource("/grafiki/mapa_v2.png"));
-        koniecTuryN = new ImageIcon(getClass().getResource("/grafiki/klepsydraN.png"));
-        koniecTuryA = new ImageIcon(getClass().getResource("/grafiki/klepsydraA.png"));
-        kartyN = new ImageIcon(getClass().getResource("/grafiki/kartyN.png"));
-        kartyA = new ImageIcon(getClass().getResource("/grafiki/kartyA.png"));
+        endTurnU = new ImageIcon(getClass().getResource("/grafiki/klepsydraN.png"));
+        endTurnA = new ImageIcon(getClass().getResource("/grafiki/klepsydraA.png"));
+        cardsU = new ImageIcon(getClass().getResource("/grafiki/kartyN.png"));
+        cardsA = new ImageIcon(getClass().getResource("/grafiki/kartyA.png"));
         //miniMapa = new ImageIcon(getClass().getResource("/grafiki/mapa_v2.png"));
         
         L_miniMap = new JLabel();
-        L_koniecTuryN = new JLabel();
-        L_kartyN = new JLabel();
-        L_koniecTuryA = new JLabel();     
-        L_kartyA = new JLabel();
+        L_endTurnN = new JLabel();
+        L_cardsU = new JLabel();
+        L_endTurnA = new JLabel();     
+        L_cardsA = new JLabel();
         L_etap = new JLabel();
-        L_listaSektorow = new JLabel();
+        L_sectorList = new JLabel();
         L_info = new JLabel("", SwingConstants.CENTER);
         //rozwListaSekt = new List();
         
         initComponents();
-        this.getContentPane().add(BorderLayout.CENTER, tlo);
+        
+        fillSectorList();
         
         this.setVisible(true);
         
     }
        
     private void initComponents() {
-        //dodajemy tlo
-        tlo = new Tlo(null, Color.BLACK);
-        layer = new JLayeredPane();
-        layer.add(tlo, JLayeredPane.DEFAULT_LAYER);
-
-        //label = new JLabel();
-        
         //dodajemy ramke do minimapy
         L_miniMap.setIcon(miniMapa);
-        L_miniMap.setBounds(770, 0, 256, 256);
+        L_miniMap.setBounds(16, 0, 256, 256);
         this.add(L_miniMap);
         
-        L_koniecTuryN.setIcon(koniecTuryN);
-        L_koniecTuryN.setBounds(760, 480, 150, 50);
+        L_endTurnN.setIcon(endTurnU);
+        //L_endTurnA.setLocation(760, 480);
+        //L_endTurnA.setSize(150, 50);
+        //L_endTurnN.setBounds(760, 480, 150, 50);
+        L_endTurnN.setBounds(4, 480, 150, 50);
         //label2.addMouseListener(this);
-        this.add(L_koniecTuryN);
+        this.add(L_endTurnN);
         
-        L_koniecTuryA.setIcon(koniecTuryA);
-        L_koniecTuryA.setBounds(760, 480, 150, 50);
-        L_koniecTuryA.setVisible(false);
-        this.add(L_koniecTuryA);
+        L_endTurnA.setIcon(endTurnA);
+        //L_endTurnA.setLocation(4, 480);
+        //L_endTurnA.setSize(150, 50);
+        //L_endTurnA.setBounds(760, 480, 150, 50);
+        L_endTurnA.setBounds(4, 480, 150, 50);
+        L_endTurnA.setVisible(false);
+        this.add(L_endTurnA);
         
-        L_kartyN.setIcon(kartyN);
-        L_kartyN.setBounds(878, 480, 150, 50);
-        this.add(L_kartyN);
+        L_cardsU.setIcon(cardsU);
+        //L_cardsU.setBounds(878, 480, 150, 50);
+        L_cardsU.setBounds(126, 480, 150, 50);
+        this.add(L_cardsU);
         
-        L_kartyA.setIcon(kartyA);
-        L_kartyA.setBounds(878, 480, 150, 50);
-        L_kartyA.setVisible(false);
-        this.add(L_kartyA);
+        L_cardsA.setIcon(cardsA);
+        //L_cardsA.setBounds(878, 480, 150, 50);
+        L_cardsA.setBounds(126, 480, 150, 50);
+        L_cardsA.setVisible(false);
+        this.add(L_cardsA);
         
         
         L_etap.setText("Etap czegośtam");
         L_etap.setForeground(Color.BLUE);
         Font czcionka = new Font(Font.SANS_SERIF, Font.BOLD, 25);
         L_etap.setFont(czcionka);
-        L_etap.setBounds(787, 236, 200, 30);
+        //L_etap.setBounds(787, 236, 200, 30);
+        L_etap.setBounds(30, 236, 200, 30);
         this.add(L_etap);
         
         
@@ -138,11 +135,12 @@ public class OknoRozgrywki extends JFrame implements MouseListener{
         float green = 181f/255f;
         float blue = 249f/255f;
         float alpha = 0.8f;
-        Color listaSekt = new Color(red, green, blue, alpha);
-        L_listaSektorow.setOpaque(true);
-        L_listaSektorow.setBackground(listaSekt);
-        L_listaSektorow.setBounds(790, 275, 178, 190);
-        //this.add(L_listaSektorow);
+        listSectCol = new Color(red, green, blue, alpha);
+        L_sectorList.setOpaque(true);
+        L_sectorList.setBackground(listSectCol);
+        //L_sectorList.setBounds(790, 275, 178, 190);
+        L_sectorList.setBounds(40, 275, 178, 190);
+        //this.add(L_sectorList);
         
         red = 11f/255f;
         green = 101f/255f;
@@ -151,26 +149,9 @@ public class OknoRozgrywki extends JFrame implements MouseListener{
         L_info.setVerticalAlignment(SwingConstants.TOP); 
         L_info.setOpaque(true);
         L_info.setBackground(new Color(red, green, blue, alpha));
-        L_info.setBounds(770, 548, 218, 180);
+        L_info.setBounds(17, 548, 218, 180);
         this.add(L_info);
         
-        String[] sektory = {"domyślny", "domyślny1", "domyślny2", "domyślny3", "domyślny4", "domyślny5"}; 
-            //"domyślny6", "domyślny7", "domyślny8", "domyślny9", "domyślny10", "domyślny11", "domyślnyOSTATNI"};
-        lista = new JList(sektory);
-        lista.setBounds(790, 275, 178, 190);
-        //lista.setSelectionForeground(listaSekt);
-        lista.setSelectionBackground(listaSekt);
-        lista.setBackground(listaSekt);
-        //lista.setOpaque(false);
-        lista.addListSelectionListener(lls);
-        lista.setVisible(true);
-        //lista.getS
-        sp = new JScrollPane();
-        sp.setBounds(790, 275, 178, 190);
-        sp.setViewportView(lista);
-        
-        //this.add(lista);
-        this.add(sp);
     }
     
     ListSelectionListener lls = new ListSelectionListener() 
@@ -180,10 +161,10 @@ public class OknoRozgrywki extends JFrame implements MouseListener{
         public void valueChanged(ListSelectionEvent e) 
         {
             Object nazwa = e.getSource();
-            if(nazwa.equals(lista))
+            if(nazwa.equals(list))
             {
                 String informacje = "";
-                informacje += "Wybrales sektor o nazwie " + lista.getSelectedValue();
+                informacje += "Wybrales sektor o nazwie " + list.getSelectedValue();
                 L_info.setText(informacje);
                 
             }
@@ -191,13 +172,6 @@ public class OknoRozgrywki extends JFrame implements MouseListener{
             repaint();
         }
     };
-        
-    public static void main(String[] args) {
-        
-        new OknoRozgrywki();
-        
-        
-    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -216,12 +190,12 @@ public class OknoRozgrywki extends JFrame implements MouseListener{
                 //TUTAJ WYWOLANIE FUNKCJI, KTORA BEDZIE NOWA TURA DLA NASTEPNEGO GRACZA - ona musi też zmianiać listę sektorów,
                 //wyświatlaną mapę, ustawiać text w info na jakiś domyślny, funkcja z tura bedzie też modyfikowała text w L_etap
                 
-                L_koniecTuryA.setVisible(true);
+                L_endTurnA.setVisible(true);
                 repaint();
             }
             else if (e.getButton()== 3)
             {
-                akt = L_etap.getFont();
+                act = L_etap.getFont();
                 etap = L_etap.getText();
                 L_etap.setForeground(Color.red);
                 L_etap.setFont(new Font(Font.SANS_SERIF, Font.TRUETYPE_FONT, 20));
@@ -236,9 +210,9 @@ public class OknoRozgrywki extends JFrame implements MouseListener{
             {
                 //tutaj pobieranie kart dla gracza, ktory ma aktualna ture - zakomentowane przykladowe wywolanie
                 
-                L_kartyA.setVisible(true);
+                L_cardsA.setVisible(true);
                 String karty = "";
-                //karty += aktualnyGracz.pokazKarty();
+                //karty += currentPlayer.pokazKarty();
                 karty = "POKAZALEM KARTY: BLABLABLA";
                 L_info.setText(karty);
                 repaint();
@@ -246,7 +220,7 @@ public class OknoRozgrywki extends JFrame implements MouseListener{
             else if (e.getButton()== 3)
             {
                 etap = L_etap.getText();
-                akt = L_etap.getFont();
+                act = L_etap.getFont();
                 L_etap.setForeground(Color.red);
                 L_etap.setFont(new Font(Font.SANS_SERIF, Font.TRUETYPE_FONT, 20));
                 L_etap.setText("Pokaż moje karty.");
@@ -260,13 +234,13 @@ public class OknoRozgrywki extends JFrame implements MouseListener{
     public void mouseReleased(MouseEvent e) {
         if(e.getButton() == 1)
         {
-            L_koniecTuryA.setVisible(false);
-            L_kartyA.setVisible(false);
+            L_endTurnA.setVisible(false);
+            L_cardsA.setVisible(false);
         }
         else if(e.getButton() == 3)
         {
             L_etap.setText(etap);
-            L_etap.setFont(akt);
+            L_etap.setFont(act);
             L_etap.setForeground(Color.BLUE);
         }
     }
@@ -288,8 +262,8 @@ public class OknoRozgrywki extends JFrame implements MouseListener{
         int x = e.getX();
         int y = e.getY();
         if(
-                x < 876 && 
-                x > 768 &&
+                x < 122 && 
+                x > 4 &&
                 y < 530 &&
                 y > 480
             )
@@ -302,13 +276,37 @@ public class OknoRozgrywki extends JFrame implements MouseListener{
         int x = e.getX();
         int y = e.getY();
         if(
-                x < 997 && 
-                x > 887 &&
+                x < 244 && 
+                x > 126 &&
                 y < 530 &&
                 y > 480
             )
             return true;
         return false;
+    }
+
+    private void fillSectorList() {
+        
+        //tu jakoś pobieranie nazw sektorów do tablicy sektorów
+        
+        String[] sektory = {"domyślny", "domyślny1", "domyślny2", "domyślny3", "domyślny4", "domyślny5"}; 
+            //"domyślny6", "domyślny7", "domyślny8", "domyślny9", "domyślny10", "domyślny11", "domyślnyOSTATNI"};
+        list = new JList(sektory);
+        list.setBounds(40, 275, 178, 190);
+        list.setForeground(Color.black);
+        list.setSelectionForeground(Color.red);
+        list.setSelectionBackground(listSectCol);
+        list.setBackground(listSectCol);//new Color(0.0f, 0.0f, 0.0f, 0.0f));//
+        //list.setOpaque(false);
+        list.addListSelectionListener(lls);
+        list.setVisible(true);
+        //lista.getS
+        sp = new JScrollPane();
+        sp.setBounds(40, 275, 178, 190);
+        sp.setViewportView(list);
+        
+        //this.add(list);
+        this.add(sp);
     }
     
     

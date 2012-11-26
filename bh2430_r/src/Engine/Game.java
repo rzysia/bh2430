@@ -4,7 +4,7 @@
  */
 package Engine;
 
-import GUImapyRozgrywki.OknoRozgrywki;
+import GUImapyRozgrywki.GameFrame;
 
 /**
  *
@@ -15,7 +15,7 @@ public class Game {
     Player[] graczeWkolejnosci;
     Sector[] wszystkieSektory;
     String Mapa;    //tutaj mapa, na razie w stringu - tymczasowo
-    OknoRozgrywki glowneOkno;
+    GameFrame glowneOkno;
     
     
 }
