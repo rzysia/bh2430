@@ -29,6 +29,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 /**
  *
@@ -48,6 +49,8 @@ public class GButton extends JComponent implements MouseListener, MouseMotionLis
     
     private BufferedImage button;
     
+    private JLabel label;
+    
     public GButton(int x, int y, GInformationContainer ginfo){
         super();
         
@@ -64,6 +67,16 @@ public class GButton extends JComponent implements MouseListener, MouseMotionLis
             addMouseListener(this);
             addMouseMotionListener(this);
        
+        //
+            label = new JLabel(text);
+            
+            label.setBounds(0, 0, w, h);
+            label.setForeground(Color.white);
+            label.setFont(ginfo.fonts.getNormal().deriveFont(32.0f));
+            label.setHorizontalAlignment(0);
+            label.setVisible(true);
+            add(label);
+            
         //pobranie informacjów plikowych
             this.ginfo = ginfo;
          
@@ -80,9 +93,9 @@ public class GButton extends JComponent implements MouseListener, MouseMotionLis
         
         g2d.drawImage(button, 0, 0, this);
         
-        g2d.setColor(Color.WHITE);
-        g2d.setFont(ginfo.fonts.getNormal().deriveFont(32.0f));
-        g2d.drawString(text, 70, 50);
+        //g2d.setColor(Color.WHITE);
+        //g2d.setFont(ginfo.fonts.getNormal().deriveFont(32.0f));
+        //g2d.drawString(text, 70, 50);
         
     }
     
@@ -92,6 +105,7 @@ public class GButton extends JComponent implements MouseListener, MouseMotionLis
      */
     public void setText(String text){
         this.text = text;
+        this.label.setText(this.text);
     }
     
     @Override

@@ -70,8 +70,9 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
             }
             
             for(int i = 0; i < 3; i++){
-                playerIcon[i] = new GPlayerIcon(90, 180 + i * 100, ginfo);
-                this.add(playerIcon[i]);
+                playerIcon[i + 3] = new GPlayerIcon(90, 180 + i * 100, ginfo);
+                //playerIcon[i + 3].usingPlace(true);
+                this.add(playerIcon[i + 3]);
             }
 
         //dodawanie badziewia na widok
