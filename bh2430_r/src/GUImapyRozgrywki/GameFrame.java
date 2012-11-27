@@ -68,7 +68,7 @@ public class GameFrame extends JPanel implements MouseListener{
         cardsU = new ImageIcon(getClass().getResource("/grafiki/kartyN.png"));
         cardsA = new ImageIcon(getClass().getResource("/grafiki/kartyA.png"));
         //miniMapa = new ImageIcon(getClass().getResource("/grafiki/mapa_v2.png"));
-        
+           
         L_miniMap = new JLabel();
         L_endTurnN = new JLabel();
         L_cardsU = new JLabel();

@@ -4,7 +4,6 @@
  */
 package GUImapyRozgrywki;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -19,7 +18,7 @@ public class MainFrame extends JFrame{
     {
         super("TEST");
         this.setSize(1024, 768);
-        this.setResizable(false);
+        //this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setLayout(null);
         
