@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 
+import java.awt.Insets;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Image;
@@ -15,7 +16,6 @@ class FramePanel extends JPanel {
 
     public FramePanel(Image img) {
         this.img = img;
-        setOpaque(true);
     }
     
     @Override
@@ -30,24 +30,26 @@ public class GameFrame extends JFrame {
     public GameFrame() {
         super("BH2430");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1024, 768);
-        setLocation(50, 50);
+        Insets insets = this.getInsets();
+        
+        setBounds(50,50,1030,796);
         setResizable(false);
         setVisible(true);
 
         //definicja ogólnego panelu okna, który wyświetla obrazek
         ImageIcon img = new ImageIcon("MapGraphic/Maps/Map1.png");
-        JPanel framePanel = new FramePanel(img.getImage());        
+        FramePanel framePanel = new FramePanel(img.getImage());
 
         //okno gry dzieli sie na dwa panele
-        JPanel mapPanel = new MapPanel();
-        JPanel guiPanel = new GUIPanel();
+        MapPanel mapPanel = new MapPanel();
+        GUIPanel guiPanel = new GUIPanel();
 
         mapPanel.setLocation(0, 0);
         guiPanel.setLocation(768, 0);
 
         add(mapPanel);
         add(guiPanel);
+
         add(framePanel);
     }
 }

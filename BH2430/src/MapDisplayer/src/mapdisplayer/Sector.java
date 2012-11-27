@@ -15,8 +15,9 @@ class Sector {
     //lista bloków należących do sektora
     LinkedList ownedList;
 
-    Sector() {
+    Sector(int id_sector) {
         neighList = new LinkedList<Block>();
         ownedList = new LinkedList<Block>();
+        this.id_sector = id_sector;
     }
 }

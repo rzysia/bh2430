@@ -1,0 +1,2 @@
+mapdisplayer.FramePanel
+mapdisplayer.GameFrame

@@ -15,5 +15,9 @@ public class Block {
         //inicjalizacja współrzędnych bloku
         this.x = x;
         this.y = y;
+        //bazowy kolor przeźroczysty czarny
+        color = new Color(0,0,0,0);
+        //domyślny sektor = null
+        sector = null;
     }
 }
