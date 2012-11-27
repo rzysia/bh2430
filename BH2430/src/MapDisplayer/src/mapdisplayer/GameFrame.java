@@ -1,5 +1,6 @@
 package mapdisplayer;
 
+import GUImapyRozgrywki.GUIFrame;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
@@ -42,10 +43,12 @@ public class GameFrame extends JFrame {
 
         //okno gry dzieli sie na dwa panele
         MapPanel mapPanel = new MapPanel();
-        GUIPanel guiPanel = new GUIPanel();
+        GUIFrame guiPanel = new GUIFrame();
 
         mapPanel.setLocation(0, 0);
-        guiPanel.setLocation(768, 0);
+        guiPanel.setBounds(768, 0, 256, 768);
+        guiPanel.setVisible(true);
+        guiPanel.setOpaque(false);
 
         add(mapPanel);
         add(guiPanel);
