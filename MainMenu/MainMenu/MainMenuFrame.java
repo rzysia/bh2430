@@ -31,7 +31,6 @@ public class MainMenuFrame extends JFrame {
 
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         setVisible(true);
     }
 }

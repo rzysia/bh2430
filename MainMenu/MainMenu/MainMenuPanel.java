@@ -38,14 +38,15 @@ public class MainMenuPanel extends JPanel {
     private JFrame jf;
     GInformationContainer ginfo;
     
+    
     public MainMenuPanel(JFrame jf) {
         super();
-
+        setLayout(null);
         this.jf = jf;
         this.setMaximumSize(new Dimension(800, 600));
         this.setMinimumSize(new Dimension(800, 600));
         ginfo = new GInformationContainer();
-
+         
         //pobieranie grafiki przcisków oraz czcionki
         try {
             ginfo.buttonsGraphics.setGraphics("./graphics/MainMenu/unpress_button.png", "./graphics/MainMenu/over_button.png", "./graphics/MainMenu/press_button.png");
@@ -65,33 +66,33 @@ public class MainMenuPanel extends JPanel {
         
         //tworzenie przycisków  
         button1 = new MenuButton(25, 25, ginfo, 1, this);
-        button1.setText("Graj");
+        button1.setText("Graj", true);
         button1.setButtonVisible(true);
         this.add(button1);
         
         button2 = new MenuButton(25, 150, ginfo, 2, this);
-        button2.setText("Profil");
+        button2.setText("Profil", true);
         button2.setButtonVisible(true);
 
         this.add(button2);
         button3 = new MenuButton(25, 275, ginfo, 3, this);
-        button3.setText("Dolacz do rozgrywki");
+        button3.setText("Dolacz", true);
         button3.setButtonVisible(true);
         this.add(button3);
 
         button4 = new MenuButton(25, 400, ginfo, 4, this);
-        button4.setText("Wyjscie");
+        button4.setText("Wyjdz", true);
         button4.setButtonVisible(true);
         this.add(button4);
 
         button5 = new MenuButton(300, 25, ginfo, 5, this);
-        button5.setText("Stworz nowa rozgrywke");
+        button5.setText("Nowa", false);
         this.add(button5);
         
         button6 = new MenuButton(300, 150, ginfo, 6, this);
-        button6.setText("Samouczek");
+        button6.setText("Samouczek", false);
         this.add(button6);
-
+        
 
     }
     //rysowanie napisu "Menu" i obramowania /pożyczone od Przema
@@ -117,7 +118,7 @@ public class MainMenuPanel extends JPanel {
            g2d.setColor(Color.GREEN);
            g2d.drawString("Menu",600,530);
     }
-    //g2d.drawImage(ginfo.waitingRoomGraphics.getMiddleRight(), 40*12, 40*2, this);
+ 
     
     //funkcja sterująca przyciskami
     public void mouseClicked(MouseEvent e, int id) {
@@ -125,23 +126,33 @@ public class MainMenuPanel extends JPanel {
         JPanel wrp;
         switch (id) {
             case 1:
+                
                 button5.setButtonVisible(true);
+                button5.setText("Nowa", true);
                 button6.setButtonVisible(true);
+                button6.setText("Samouczek", true);
                 repaint();
                 break;
             case 2:
                 button5.setButtonVisible(false);
+                button5.setText("Nowa", false);
                 button6.setButtonVisible(false);
+                button6.setText("Samouczek", false);
                 repaint();
                 break;
             case 3:
                 button5.setButtonVisible(false);
+                button5.setText("Nowa", false);
                 button6.setButtonVisible(false);
+                button6.setText("Samouczek", false);
                 repaint();
                 break;
             case 4:
                 button5.setButtonVisible(false);
+                button5.setText("Nowa", false);
                 button6.setButtonVisible(false);
+                button6.setText("Samouczek", false);
+                
                 repaint();
                 System.exit(0);
                 break;
@@ -182,9 +193,10 @@ public class MainMenuPanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
+        
         g2d = (Graphics2D) g;
         drawBackground();
         drawTitleMenu();
-        
+       
     }
 }

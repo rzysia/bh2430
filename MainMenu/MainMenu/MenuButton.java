@@ -19,28 +19,39 @@ import waitingroom.utilities.GPlayerIcon;
  */
 public class MenuButton extends GButton {
 
+    
     int id = 0;
     boolean visible;
     MainMenuPanel mrp;
     
+    
     //konstruktor
     MenuButton(int x, int y, GInformationContainer ginfo, int id, MainMenuPanel mrp) {
+        
         super(x, y, ginfo);
         this.id = id;
         this.visible = false;
         this.mrp = mrp;
+        
+        
     }
     
     //pomaga w wywołaniu przeciążonej funkcji w MenuRoomPanelu
     public void mouseClicked(MouseEvent e) {
         //System.out.println("mouseClicked");
         mrp.mouseClicked(e, id);
+        
     }
     
     //ustawienie przycisku widocznym w oknie
     public void setButtonVisible(boolean visibleState) {
         this.visible = visibleState;
-
+        //setTextVisible(visibleState);
+    }
+    public void setTextVisible(boolean visibleState)
+    {
+        //this.label;
+        
     }
     
     //narysowanie buttonu
