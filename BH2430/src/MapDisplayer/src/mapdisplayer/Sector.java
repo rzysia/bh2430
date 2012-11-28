@@ -2,6 +2,7 @@ package mapdisplayer;
 
 import java.util.LinkedList;
 
+//klasa przechowująca dane o sektorze
 class Sector {
 
     //id wlaściciela sektora

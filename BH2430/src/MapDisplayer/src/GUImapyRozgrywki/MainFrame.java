@@ -4,6 +4,7 @@
  */
 package GUImapyRozgrywki;
 
+import mapdisplayer.GUIPanel;
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -24,7 +25,7 @@ public class MainFrame extends JFrame{
         
         initComponents();
         
-        GUIFrame panel = new GUIFrame();
+        GUIPanel panel = new GUIPanel();
         
         panel.setBackground(Color.black);
         panel.setBounds(768, 0, 256, 768);

@@ -1,21 +1,18 @@
 package mapdisplayer;
 
-import GUImapyRozgrywki.GUIFrame;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 
-import java.awt.Insets;
-import java.awt.Dimension;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.Graphics;
 
+//panel stworzony do wyświetlania tła (obrazka)
 class FramePanel extends JPanel {
 
     private Image img;
 
-    public FramePanel(Image img) {
+    FramePanel(Image img) {
         this.img = img;
     }
     
@@ -25,14 +22,14 @@ class FramePanel extends JPanel {
     }
 }
 
+//klasa określa całe okno gry
 public class GameFrame extends JFrame {
-    //funkcja określa całe okno gry
 
-    public GameFrame() {
+    GameFrame() {
         super("BH2430");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Insets insets = this.getInsets();
         
+        //wnętrze okna ma rozmiar 1024x768
         setBounds(50,50,1030,796);
         setResizable(false);
         setVisible(true);
@@ -43,7 +40,7 @@ public class GameFrame extends JFrame {
 
         //okno gry dzieli sie na dwa panele
         MapPanel mapPanel = new MapPanel();
-        GUIFrame guiPanel = new GUIFrame();
+        GUIPanel guiPanel = new GUIPanel();
 
         mapPanel.setLocation(0, 0);
         guiPanel.setBounds(768, 0, 256, 768);

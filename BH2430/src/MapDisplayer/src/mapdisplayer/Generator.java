@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import java.awt.Color;
 
+//klasa generująca losowy podział mapy na sektory
 class Generator {
 
     static Block[][] blocks4x4;
@@ -237,6 +238,7 @@ class Generator {
         return false;
     }
 
+    //funkcja generująca JEDEN sektor
     void generate_sector(int size, Sector sector, Color color, int startX, int startY) {
         Block nextBlock;
         int x = startX;
@@ -249,7 +251,7 @@ class Generator {
         for (int currSize = 1; currSize < size; currSize++) {
             if (sector.neighList.isEmpty() && fixList.isEmpty()) {
                 //System.out.println("Sektor zmniejszony o " + (size - currSize));
-                System.out.println("Sektor usunięty");
+                //System.out.println("Sektor usunięty");
 
                 break;
             }
@@ -265,7 +267,7 @@ class Generator {
                 } while (tmp < 1000000 && isBridge((Block) sector.neighList.get(indexOnList)));
                 if (isBridge((Block) sector.neighList.get(indexOnList))) {
                     //System.out.println("Sektor zmniejszony o " + (size - currSize));
-                    System.out.println("Sektor usunięty");
+                    //System.out.println("Sektor usunięty");
                     break;
                 }
                 nextBlock = (Block) sector.neighList.get(indexOnList);

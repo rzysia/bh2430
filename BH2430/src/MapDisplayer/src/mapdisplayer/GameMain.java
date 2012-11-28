@@ -1,18 +1,17 @@
 package mapdisplayer;
 
 import java.util.Random;
-import java.util.LinkedList;
 
 import java.awt.EventQueue;
 import java.awt.Color;
 
 
-
+//główna klasa z mainem odpowiadająca za uruchamianie aplikacji
 public class GameMain {
 
     public static void main(String[] args) {
         Generator gen = new Generator();
-        LinkedList secList = new LinkedList<Sector>();
+        Data data = new Data();
         Random rand = new Random();
         Sector sec = null;
         int countSectors = 100;
@@ -31,7 +30,7 @@ public class GameMain {
                     do {
                         //System.out.println("1");
                         do {
-                            sec = (Sector) secList.get(Math.abs(rand.nextInt() % secList.size()));
+                            sec = (Sector) data.sectorList.get(Math.abs(rand.nextInt() % data.sectorList.size()));
                         } while (sec.neighList.size() == 0);
                         neighIndex = Math.abs(rand.nextInt() % sec.neighList.size());
                     } while (gen.isBridge((Block) sec.neighList.get(neighIndex)));
@@ -44,7 +43,7 @@ public class GameMain {
                 }
             }
             sec = new Sector(i);
-            secList.add(sec);
+            data.sectorList.add(sec);
             gen.generate_sector(1024, sec, new Color(red, green, blue, 128), startX, startY);
         }
 
