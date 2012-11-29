@@ -72,6 +72,7 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
             for(int i = 0; i < 3; i++){
                 playerIcon[i + 3] = new GPlayerIcon(90, 180 + i * 100, ginfo);
                 //playerIcon[i + 3].usingPlace(true);
+                //addicomjasndoamnsdoikmaosdmaoisdm
                 this.add(playerIcon[i + 3]);
             }
 
