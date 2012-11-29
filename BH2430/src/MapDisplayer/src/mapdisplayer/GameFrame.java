@@ -25,6 +25,10 @@ class FramePanel extends JPanel {
 //klasa określa całe okno gry
 public class GameFrame extends JFrame {
 
+    MapPanel mapPanel;
+    GUIPanel guiPanel;
+    FramePanel framePanel;
+
     GameFrame() {
         super("BH2430");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,11 +40,14 @@ public class GameFrame extends JFrame {
 
         //definicja ogólnego panelu okna, który wyświetla obrazek
         ImageIcon img = new ImageIcon("MapGraphic/Maps/Map1.png");
-        FramePanel framePanel = new FramePanel(img.getImage());
+        framePanel = new FramePanel(img.getImage());
 
         //okno gry dzieli sie na dwa panele
-        MapPanel mapPanel = new MapPanel();
-        GUIPanel guiPanel = new GUIPanel();
+        mapPanel = new MapPanel();
+        guiPanel = new GUIPanel();
+
+        mapPanel.guiPanel = guiPanel;
+        guiPanel.mapPanel = mapPanel;
 
         mapPanel.setLocation(0, 0);
         guiPanel.setBounds(768, 0, 256, 768);

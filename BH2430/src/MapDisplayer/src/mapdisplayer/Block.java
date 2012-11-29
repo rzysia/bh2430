@@ -9,15 +9,17 @@ public class Block {
     int x, y;
     //do którego sektora jest przypisany blok
     Sector sector;
-    //kolor bloku
-    Color color;
+    //kolory bloku
+    Color currColor;
+    Color unselectColor;
+    Color selectColor;
 
     Block(int x, int y) {
         //inicjalizacja współrzędnych bloku
         this.x = x;
         this.y = y;
         //bazowy kolor przeźroczysty czarny
-        color = new Color(0,0,0,0);
+        currColor = new Color(0,0,0,0);
         //domyślny sektor = null
         sector = null;
     }

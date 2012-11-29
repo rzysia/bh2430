@@ -20,5 +20,6 @@ class Sector {
         neighList = new LinkedList<Block>();
         ownedList = new LinkedList<Block>();
         this.id_sector = id_sector;
+        name = "Sektor nr "+id_sector;
     }
 }

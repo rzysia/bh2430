@@ -8,46 +8,35 @@ import java.awt.Color;
 //klasa generująca losowy podział mapy na sektory
 class Generator {
 
-    static Block[][] blocks4x4;
-    static LinkedList fixList;
     Random rand;
 
     Generator() {
-        //inicjalizacja mapy skladajacej sie z 192x192 blokow 4x4 pikseli
-        blocks4x4 = new Block[192][192];
-        for (int i = 0; i < blocks4x4.length; i++) {
-            for (int j = 0; j < blocks4x4.length; j++) {
-                blocks4x4[i][j] = new Block(i, j);
-            }
-        }
         //inicjalizacja zmiennej losowej
         rand = new Random();
-        //inicjalizacja listy bloków z priorytetem dodania do sektora
-        fixList = new LinkedList<Block>();
     }
 
     //funkcja aktualizuje listę sąsiedztwa bloków po dodaniu bloku x,y
     boolean updateNeighList(int x, int y, LinkedList<Block> neighList, LinkedList<Block> ownedList) {
-        neighList.remove(blocks4x4[x][y]);
-        ownedList.add(blocks4x4[x][y]);
+        neighList.remove(Data.blocks4x4[x][y]);
+        ownedList.add(Data.blocks4x4[x][y]);
 
         boolean successful = true;
 
-        if (x != 0 && blocks4x4[x - 1][y] != null && blocks4x4[x - 1][y].sector == null && !neighList.contains(blocks4x4[x - 1][y]) && !fixList.contains(blocks4x4[x - 1][y])) {
+        if (x != 0 && Data.blocks4x4[x - 1][y] != null && Data.blocks4x4[x - 1][y].sector == null && !neighList.contains(Data.blocks4x4[x - 1][y]) && !Data.fixList.contains(Data.blocks4x4[x - 1][y])) {
             //System.out.println((x - 1) + " " + y + " jako sasiad: " + x + " " + y);
-            neighList.add(blocks4x4[x - 1][y]);
+            neighList.add(Data.blocks4x4[x - 1][y]);
         }
-        if (x != 191 && blocks4x4[x + 1][y] != null && blocks4x4[x + 1][y].sector == null && !neighList.contains(blocks4x4[x + 1][y]) && !fixList.contains(blocks4x4[x + 1][y])) {
+        if (x != 191 && Data.blocks4x4[x + 1][y] != null && Data.blocks4x4[x + 1][y].sector == null && !neighList.contains(Data.blocks4x4[x + 1][y]) && !Data.fixList.contains(Data.blocks4x4[x + 1][y])) {
             //System.out.println((x + 1) + " " + y + " jako sasiad: " + x + " " + y);
-            neighList.add(blocks4x4[x + 1][y]);
+            neighList.add(Data.blocks4x4[x + 1][y]);
         }
-        if (y != 0 && blocks4x4[x][y - 1] != null && blocks4x4[x][y - 1].sector == null && !neighList.contains(blocks4x4[x][y - 1]) && !fixList.contains(blocks4x4[x][y - 1])) {
+        if (y != 0 && Data.blocks4x4[x][y - 1] != null && Data.blocks4x4[x][y - 1].sector == null && !neighList.contains(Data.blocks4x4[x][y - 1]) && !Data.fixList.contains(Data.blocks4x4[x][y - 1])) {
             //System.out.println(x + " " + (y - 1) + " jako sasiad: " + x + " " + y);
-            neighList.add(blocks4x4[x][y - 1]);
+            neighList.add(Data.blocks4x4[x][y - 1]);
         }
-        if (y != 191 && blocks4x4[x][y + 1] != null && blocks4x4[x][y + 1].sector == null && !neighList.contains(blocks4x4[x][y + 1]) && !fixList.contains(blocks4x4[x][y + 1])) {
+        if (y != 191 && Data.blocks4x4[x][y + 1] != null && Data.blocks4x4[x][y + 1].sector == null && !neighList.contains(Data.blocks4x4[x][y + 1]) && !Data.fixList.contains(Data.blocks4x4[x][y + 1])) {
             //System.out.println(x + " " + (y + 1) + " jako sasiad: " + x + " " + y);
-            neighList.add(blocks4x4[x][y + 1]);
+            neighList.add(Data.blocks4x4[x][y + 1]);
         }
         return successful;
 
@@ -58,16 +47,16 @@ class Generator {
         for (int i = 0; i < neighList.size(); i++) {
             Block block = (Block) neighList.get(i);
             int environment = 0;
-            if ((block.x == 0) || (blocks4x4[block.x - 1][block.y].sector != null)) {
+            if ((block.x == 0) || (Data.blocks4x4[block.x - 1][block.y].sector != null)) {
                 environment++;
             }
-            if ((block.x == 191) || (blocks4x4[block.x + 1][block.y].sector != null)) {
+            if ((block.x == 191) || (Data.blocks4x4[block.x + 1][block.y].sector != null)) {
                 environment++;
             }
-            if ((block.y == 0) || (blocks4x4[block.x][block.y - 1].sector != null)) {
+            if ((block.y == 0) || (Data.blocks4x4[block.x][block.y - 1].sector != null)) {
                 environment++;
             }
-            if ((block.y == 191) || (blocks4x4[block.x][block.y + 1].sector != null)) {
+            if ((block.y == 191) || (Data.blocks4x4[block.x][block.y + 1].sector != null)) {
                 environment++;
             }
             if (environment >= 3) {
@@ -94,31 +83,31 @@ class Generator {
 
         //zdefiniowanie sąsiadów bocznych
         if (block.x != 0) {
-            L = blocks4x4[block.x - 1][block.y];
+            L = Data.blocks4x4[block.x - 1][block.y];
         }
         if (block.x != 191) {
-            R = blocks4x4[block.x + 1][block.y];
+            R = Data.blocks4x4[block.x + 1][block.y];
         }
         if (block.y != 0) {
-            U = blocks4x4[block.x][block.y - 1];
+            U = Data.blocks4x4[block.x][block.y - 1];
         }
         if (block.y != 191) {
-            D = blocks4x4[block.x][block.y + 1];
+            D = Data.blocks4x4[block.x][block.y + 1];
         }
 
 
         //zdefiniowanie sąsiadów narożnych
         if (block.x != 0 && block.y != 0) {
-            LU = blocks4x4[block.x - 1][block.y - 1];
+            LU = Data.blocks4x4[block.x - 1][block.y - 1];
         }
         if (block.x != 0 && block.y != 191) {
-            LD = blocks4x4[block.x - 1][block.y + 1];
+            LD = Data.blocks4x4[block.x - 1][block.y + 1];
         }
         if (block.x != 191 && block.y != 0) {
-            RU = blocks4x4[block.x + 1][block.y - 1];
+            RU = Data.blocks4x4[block.x + 1][block.y - 1];
         }
         if (block.x != 191 && block.y != 191) {
-            RD = blocks4x4[block.x + 1][block.y + 1];
+            RD = Data.blocks4x4[block.x + 1][block.y + 1];
         }
 
 
@@ -243,13 +232,15 @@ class Generator {
         Block nextBlock;
         int x = startX;
         int y = startY;
-        blocks4x4[x][y].sector = sector;
-        blocks4x4[x][y].color = color;
+        Data.blocks4x4[x][y].sector = sector;
+        Data.blocks4x4[x][y].currColor = color;
+        Data.blocks4x4[x][y].unselectColor = color;
+        Data.blocks4x4[x][y].selectColor = color.brighter();
         if (updateNeighList(x, y, sector.neighList, sector.ownedList)) {
             //System.out.println("Dodalem " + x + " " + y + " kwadrat.");
         }
         for (int currSize = 1; currSize < size; currSize++) {
-            if (sector.neighList.isEmpty() && fixList.isEmpty()) {
+            if (sector.neighList.isEmpty() && Data.fixList.isEmpty()) {
                 //System.out.println("Sektor zmniejszony o " + (size - currSize));
                 //System.out.println("Sektor usunięty");
 
@@ -257,7 +248,7 @@ class Generator {
             }
             int indexOnList = 0;
 
-            if (fixList.isEmpty()) {
+            if (Data.fixList.isEmpty()) {
                 int tmp = -1;
                 do {
                     //System.out.println("2");
@@ -272,15 +263,53 @@ class Generator {
                 }
                 nextBlock = (Block) sector.neighList.get(indexOnList);
             } else {
-                nextBlock = (Block) fixList.pop();
+                nextBlock = (Block) Data.fixList.pop();
             }
             //System.out.println(sector);
             nextBlock.sector = sector;
-            nextBlock.color = color;
+            nextBlock.currColor = color;
+            nextBlock.unselectColor = color;
+            nextBlock.selectColor = color.brighter();
             if (updateNeighList(nextBlock.x, nextBlock.y, sector.neighList, sector.ownedList)) {
                 //System.out.println("Dodalem " + nextBlock.x + " " + nextBlock.y + " kwadrat.");
             }
-            updateFixList(sector.neighList, sector, fixList);
+            updateFixList(sector.neighList, sector, Data.fixList);
+        }
+    }
+
+    //główna funkcja generatora wywoływana jako pierwsza z parametrem ilości oraz wielkości sektorów
+    void generate(int countSectors, int sizeSector) {
+        Sector sector = null;
+        for (int i = 1; i <= countSectors; i++) {
+            int red = Math.abs(rand.nextInt() % 256);
+            int green = Math.abs(rand.nextInt() % 256);
+            int blue = Math.abs(rand.nextInt() % 256);
+            int startX;
+            int startY;
+            if (sector == null) {
+                startX = 96;
+                startY = 96;
+            } else {
+                if (Data.fixList.isEmpty()) {
+                    int neighIndex = 0;
+                    do {
+                        //System.out.println("1");
+                        do {
+                            sector = (Sector) Data.sectorList.get(Math.abs(rand.nextInt() % Data.sectorList.size()));
+                        } while (sector.neighList.size() == 0);
+                        neighIndex = Math.abs(rand.nextInt() % sector.neighList.size());
+                    } while (isBridge((Block) sector.neighList.get(neighIndex)));
+                    startX = ((Block) sector.neighList.get(neighIndex)).x;
+                    startY = ((Block) sector.neighList.get(neighIndex)).y;
+                } else {
+                    startX = ((Block) Data.fixList.peek()).x;
+                    startY = ((Block) Data.fixList.peek()).y;
+                    Data.fixList.pop();
+                }
+            }
+            sector = new Sector(i);
+            Data.sectorList.add(sector);
+            generate_sector(sizeSector, sector, new Color(red, green, blue, 96), startX, startY);
         }
     }
 }
