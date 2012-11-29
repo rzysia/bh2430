@@ -309,7 +309,7 @@ class Generator {
             }
             sector = new Sector(i);
             Data.sectorList.add(sector);
-            generate_sector(sizeSector, sector, new Color(red, green, blue, 96), startX, startY);
+            generate_sector(sizeSector, sector, new Color(red, green, blue, 178), startX, startY);
         }
     }
 }

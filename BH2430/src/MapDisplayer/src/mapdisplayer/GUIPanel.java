@@ -137,12 +137,13 @@ public class GUIPanel extends JPanel implements MouseListener {
         L_sectorList.setBounds(40, 275, 178, 190);
         //this.add(L_sectorList);
 
-        red = 11f / 255f;
-        green = 101f / 255f;
-        blue = 251f / 255f;
-        alpha = 0.8f;
+        red = 2f / 255f;
+        green = 32f / 255f;
+        blue = 213f / 255f;
+        alpha = 0.4f;
         L_info.setVerticalAlignment(SwingConstants.TOP);
         L_info.setOpaque(true);
+        L_info.setForeground(Color.WHITE);
         L_info.setBackground(new Color(red, green, blue, alpha));
         L_info.setBounds(17, 548, 218, 180);
         this.add(L_info);
@@ -170,18 +171,24 @@ public class GUIPanel extends JPanel implements MouseListener {
     void displaySectorInfo(String info) {
         L_info.setText(info);
     }
+    
+    public 
+    
     ListSelectionListener lls = new ListSelectionListener() {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
             Object nazwa = e.getSource();
-            if (list.getSelectedValue() != null && nazwa.equals(list) && !((String)list.getSelectedValue()).equals(selectedname)) {
+            if (list.getSelectedValue() != null && nazwa.equals(list) && !((String)list.getSelectedValue()).equals(selectedname)) 
+            {
                 selectedname = (String)list.getSelectedValue();
-                if (mapPanel.selectedSector != null) {
+                if (mapPanel.selectedSector != null) 
+                {
                     mapPanel.unselectSector(mapPanel.selectedSector);
                 }
                 mapPanel.selectedSector = whatSector(selectedname);
-                if (mapPanel.selectedSector != null) {
+                if (mapPanel.selectedSector != null) 
+                {
                     mapPanel.selectSector(mapPanel.selectedSector);
                 }
             }

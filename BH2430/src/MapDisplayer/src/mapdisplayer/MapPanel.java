@@ -18,7 +18,8 @@ public class MapPanel extends JPanel implements MouseListener {
 
     MapPanel() {
         addMouseListener(this);
-        setBackground(new Color(0, 0, 0, 255));
+        //setBackground(new Color(0, 0, 0, 0));
+        this.setOpaque(false);
         setSize(768, 768);
     }
 
@@ -39,7 +40,7 @@ public class MapPanel extends JPanel implements MouseListener {
         }
         String info = guiPanel.sectorToInfo(selectedSector);
         guiPanel.displaySectorInfo(info);
-        repaint();
+        this.repaint();
     }
 
     //funkcja odznacza sektor
@@ -55,9 +56,11 @@ public class MapPanel extends JPanel implements MouseListener {
 
     @Override
     public void paintComponent(Graphics g) {
+        //g.clearRect(0, 0, 768, 768);
         super.paintComponent(g);
         g.setColor(new Color(0, 0, 0, 0));
         g.fillRect(0, 0, 768, 768);
+
         g2d = (Graphics2D) g;
         //g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f));
         //Rectangle2D.Double rect = new Rectangle2D.Double(0,0,768,768);
@@ -82,19 +85,21 @@ public class MapPanel extends JPanel implements MouseListener {
     //oraz realizuje operację czyszczenia zaznaczeń w przypadku kliknięcia w miejsce puste
     @Override
     public void mousePressed(MouseEvent e) {
-        if (selectedSector != null) {
-            unselectSector(selectedSector);
-        }
-        selectedSector = whatSector(e);
-        if (selectedSector != null) {
-            guiPanel.list.setSelectedIndex(selectedSector.id_sector - 1);
-        } else {
-            guiPanel.list.clearSelection();
-        }
-        if (selectedSector != null) {
-            selectSector(selectedSector);
-            String info = guiPanel.sectorToInfo(selectedSector);
-            guiPanel.displaySectorInfo(info);
+        if (whatSector(e) != selectedSector) {
+            if (selectedSector != null) {
+                unselectSector(selectedSector);
+            }
+            selectedSector = whatSector(e);
+            if (selectedSector != null) {
+                guiPanel.list.setSelectedIndex(selectedSector.id_sector - 1);
+            } else {
+                guiPanel.list.clearSelection();
+            }
+            if (selectedSector != null) {
+                selectSector(selectedSector);
+                String info = guiPanel.sectorToInfo(selectedSector);
+                guiPanel.displaySectorInfo(info);
+            }
         }
     }
 
