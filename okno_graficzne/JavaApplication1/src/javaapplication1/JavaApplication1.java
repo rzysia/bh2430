@@ -70,8 +70,11 @@ public class JavaApplication1 {
        
       
       myCanvas A=new myCanvas();
-      
-      
+      /*A.stworzXML();
+      A.dodawanieprofilu("FDSFSD");
+      A.dodawanieprofilu("FSD");
+      A.dodawanieprofilu("zc");
+      */
         
     
 

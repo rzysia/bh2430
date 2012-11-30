@@ -139,9 +139,13 @@ import javaapplication1.oknododi;
          }
            if (stan2>=1 && stan2<=9)
            {
-               Image obrazdod4 = (new ImageIcon("C:\\Users\\user\\Desktop\\okno graficzne do profili\\zolty.jpg")).getImage();
+               Image obrazdod4 = (new ImageIcon("C:\\Users\\Student\\Desktop\\okno_graficzne\\zolty.jpg")).getImage();
                g.drawImage(obrazdod4,100,(stan2)*10,300,10,this);
            }
+           if (zalogowany==true)
+          {
+          g.drawString("zalogowany : " + profile[indeks1+log-1],10,10);
+         }
           try {
              wyswietlanieprofili(g);
          } catch (FileNotFoundException ex) {
@@ -149,10 +153,7 @@ import javaapplication1.oknododi;
          } catch (IOException ex) {
              Logger.getLogger(myCanvas.class.getName()).log(Level.SEVERE, null, ex);
          }
-          if (zalogowany==true)
-          {
-          g.drawString("zalogowany : " + profile[indeks1+log-1],10,10);
-         }
+          
      }
 
      public void mouseDragged (MouseEvent mevent)
@@ -356,7 +357,7 @@ import javaapplication1.oknododi;
     
     public static void stworzXML() throws IOException
     {
-      File Plik = new File("C:\\Users\\user\\Desktop\\okno graficzne do profili\\dane.xml");  
+      File Plik = new File("C:\\Users\\Student\\Desktop\\okno_graficzne\\dane.xml");  
         try (FileWriter zapis = new FileWriter(Plik)) {
             zapis.write("<profile>");
             zapis.write("</profile>");
@@ -369,7 +370,7 @@ import javaapplication1.oknododi;
     {
         String s1="";
         String s="";
-        FileReader czytanie = new FileReader("C:\\Users\\user\\Desktop\\okno graficzne do profili\\dane.xml");
+        FileReader czytanie = new FileReader("C:\\Users\\Student\\Desktop\\okno_graficzne\\dane.xml");
         BufferedReader br = new BufferedReader(czytanie);
         while(s1!=null)
         {  
@@ -497,7 +498,7 @@ import javaapplication1.oknododi;
             s+=s1;
         }
         br.close();
-        int wiersz=20;
+        int wiersz=0;
         int h=("<profil>".length());
         int v=0;
         for (int i=0 ; i<s.length()-h;i++)
@@ -513,9 +514,9 @@ import javaapplication1.oknododi;
            profile[v++]=s.substring(i+h,j);
             
            
-           if (i>=indeks1 && i<=max)
+           if (wiersz>=indeks1 && wiersz<=max)
            {
-           g.drawString(s.substring(i+h,j),100 ,wiersz );
+           g.drawString(s.substring(i+h,j),100,wiersz+20 );
            wiersz=wiersz+10;
            }
           
