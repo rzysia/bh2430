@@ -151,11 +151,11 @@ public class GUIPanel extends JPanel implements MouseListener {
     }
 
     //funkcja zwraca sektor na podstawie jego nazwy
-    Sector whatSector(String name){
+    Sector whatSector(String name) {
         Sector sector;
         int i = 0;
         do {
-            sector = (Sector)Data.sectorList.get(i);
+            sector = (Sector) Data.sectorList.get(i);
             i++;
         } while (i <= Data.sectorList.size() && !sector.name.equals(name));
         return sector;
@@ -171,24 +171,22 @@ public class GUIPanel extends JPanel implements MouseListener {
     void displaySectorInfo(String info) {
         L_info.setText(info);
     }
-    
-    public 
-    
-    ListSelectionListener lls = new ListSelectionListener() {
 
+    void setRound(String whichRound) {
+        L_etap.setText(whichRound);
+    }
+    
+    public ListSelectionListener lls = new ListSelectionListener() {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             Object nazwa = e.getSource();
-            if (list.getSelectedValue() != null && nazwa.equals(list) && !((String)list.getSelectedValue()).equals(selectedname)) 
-            {
-                selectedname = (String)list.getSelectedValue();
-                if (mapPanel.selectedSector != null) 
-                {
+            if (list.getSelectedValue() != null && nazwa.equals(list) && !((String) list.getSelectedValue()).equals(selectedname)) {
+                selectedname = (String) list.getSelectedValue();
+                if (mapPanel.selectedSector != null) {
                     mapPanel.unselectSector(mapPanel.selectedSector);
                 }
                 mapPanel.selectedSector = whatSector(selectedname);
-                if (mapPanel.selectedSector != null) 
-                {
+                if (mapPanel.selectedSector != null) {
                     mapPanel.selectSector(mapPanel.selectedSector);
                 }
             }
@@ -230,6 +228,7 @@ public class GUIPanel extends JPanel implements MouseListener {
                 String karty = "";
                 //karty += currentPlayer.pokazKarty();
                 karty = "POKAZALEM KARTY: BLABLABLA";
+                setRound("Etap: kart");
                 L_info.setText(karty);
                 repaint();
             } else if (e.getButton() == 3) {

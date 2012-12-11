@@ -1,5 +1,6 @@
 package mapdisplayer;
 
+import Engine.Player;
 import java.util.LinkedList;
 
 //klasa przechowująca dane dotyczące całego panelu rozgrywki
@@ -7,6 +8,8 @@ class Data {
     static LinkedList sectorList;
     static Block[][] blocks4x4;
     static LinkedList fixList;
+    static boolean notFinished; //ta zmienna do kontroli czy gra się nie skończyła
+    static LinkedList players = new LinkedList<Player>();;
     
     Data (){
         //inicjalizacja listy sektorów
