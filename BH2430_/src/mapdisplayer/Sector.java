@@ -11,6 +11,8 @@ class Sector {
     int id_sector;
     //nazwa sektora
     String name;
+    //wielkość sektora
+    int size;
     //lista bloków sąsiadujących z sektorem
     LinkedList neighList;
     //lista bloków należących do sektora
@@ -21,5 +23,6 @@ class Sector {
         ownedList = new LinkedList<Block>();
         this.id_sector = id_sector;
         name = "Sektor nr "+id_sector;
+        size = 0;
     }
 }

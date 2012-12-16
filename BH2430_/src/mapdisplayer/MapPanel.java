@@ -27,7 +27,7 @@ public class MapPanel extends JPanel implements MouseListener {
     Sector whatSector(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        Block block = Data.blocks4x4[x / 4][y / 4];
+        Block block = Data.blocksTable[x / Data.sizeBlock][y / Data.sizeBlock];
         Sector sector = block.sector;
         return sector;
     }
@@ -36,7 +36,8 @@ public class MapPanel extends JPanel implements MouseListener {
     void selectSector(Sector sector) {
         for (int i = 0; i < sector.ownedList.size(); i++) {
             Block block = (Block) sector.ownedList.get(i);
-            block.currColor = block.selectColor;
+            //block.currColor = block.selectColor;
+            block.colorWholeBlock(block.selectColor);
         }
         String info = guiPanel.sectorToInfo(selectedSector);
         guiPanel.displaySectorInfo(info);
@@ -47,7 +48,8 @@ public class MapPanel extends JPanel implements MouseListener {
     void unselectSector(Sector sector) {
         for (int i = 0; i < sector.ownedList.size(); i++) {
             Block block = (Block) sector.ownedList.get(i);
-            block.currColor = block.unselectColor;
+            //block.currColor = block.unselectColor;
+            block.colorWholeBlock(block.unselectColor);
         }
         String info = "";
         guiPanel.displaySectorInfo(info);
@@ -66,12 +68,16 @@ public class MapPanel extends JPanel implements MouseListener {
         //Rectangle2D.Double rect = new Rectangle2D.Double(0,0,768,768);
         //g2d.setColor(new Color(0,0,0,0));
         //g2d.fill(rect);
-        //System.out.println(Data.blocks4x4[0][0].currColor);
-        for (int row = 0; row < Data.blocks4x4.length; row++) {
-            for (int col = 0; col < Data.blocks4x4.length; col++) {
-                g2d.setColor(Data.blocks4x4[row][col].currColor);
-                g2d.fillRect(row * 4, col * 4, 4, 4);
-                //System.out.println("Rysuję: "+row+" "+col+" "+Generator.blocks4x4[row][col].sector+" "+Generator.blocks4x4[row][col].currColor);
+        //System.out.println(Data.blocksTable[0][0].currColor);
+        for (int row = 0; row < Data.blocksTable.length; row++) {
+            for (int col = 0; col < Data.blocksTable.length; col++) {
+                for (int subrow = 0; subrow < 4; subrow++) {
+                    for (int subcol = 0; subcol < 4; subcol++) {
+                        g2d.setColor(Data.blocksTable[row][col].tableColor[subrow][subcol]);
+                        g2d.fillRect((row * Data.sizeBlock)+(2*subrow), (col * Data.sizeBlock)+(2*subcol), 2, 2);
+                    }
+                }
+                //System.out.println("Rysuję: "+row+" "+col+" "+Generator.blocksTable[row][col].sector+" "+Generator.blocksTable[row][col].currColor);
             }
         }
     }

@@ -163,7 +163,12 @@ public class GUIPanel extends JPanel implements MouseListener {
 
     //funkcja tworzy blok informacji na podstawie sektora
     String sectorToInfo(Sector sector) {
-        String info = "Wybrałeś " + sector.name;
+        String info = "<html>";
+        
+        info += "Wybrałeś " + sector.name + "<br>";
+        info += "Wielkość: " + sector.size;
+        
+        info += "</html>";
         return info;
     }
 

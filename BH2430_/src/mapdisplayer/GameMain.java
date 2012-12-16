@@ -1,7 +1,5 @@
 package mapdisplayer;
 
-import java.util.Random;
-
 import java.awt.EventQueue;
 
 
@@ -10,11 +8,8 @@ public class GameMain {
 
     public GameMain() {
         Generator gen = new Generator();
-        Data data = new Data();
-        Random rand = new Random();
-        int countSectors = 100;
-        int sizeSector = 1024;
-        gen.generate(countSectors, sizeSector);
+        Data data = new Data(8,36);
+        gen.generatorMain(Data.countSectors, Data.sizeSector);
 
         EventQueue.invokeLater(new Runnable() {
 
