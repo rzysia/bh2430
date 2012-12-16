@@ -5,24 +5,39 @@ import java.util.LinkedList;
 //klasa przechowująca dane o sektorze
 class Sector {
 
-    //id wlaściciela sektora
-    int id_owner;
-    //id sektora
-    int id_sector;
     //nazwa sektora
     String name;
+    //nazwa właściciela sektora
+    String nameOwner;
+    //nazwa konstelacji
+    String nameCon;
+    //id sektora
+    int idSector;
+    //id wlaściciela sektora
+    int idOwner;
+    //id konstelacji
+    int idCon;
     //wielkość sektora
     int size;
-    //lista bloków sąsiadujących z sektorem
-    LinkedList neighList;
+    //ilość jednostek
+    int army;
+    //lista bloków sąsiadujących z sektorem (potrzebna generatorowi)
+    LinkedList neighBlocksList;
+    //lista sektorów sąsiadujących
+    LinkedList neighSectorsList;
     //lista bloków należących do sektora
     LinkedList ownedList;
 
     Sector(int id_sector) {
-        neighList = new LinkedList<Block>();
+        neighBlocksList = new LinkedList<Block>();
+        neighSectorsList = new LinkedList<Block>();
         ownedList = new LinkedList<Block>();
-        this.id_sector = id_sector;
+        idSector = id_sector;
         name = "Sektor nr "+id_sector;
+        idOwner = 0;
+        nameOwner = "Brak";
+        idCon = 0;
+        nameCon = "Nieznana";
         size = 0;
     }
 }

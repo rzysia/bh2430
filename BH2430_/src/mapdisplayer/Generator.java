@@ -232,7 +232,7 @@ class Generator {
             block.colorWholeBlock(new Color(0, 0, 0, 0));
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 4; k++) {
-                    block.tableColor[j][k] = new Color (0,0,0,0);
+                    block.tableColor[j][k] = new Color(0, 0, 0, 0);
                 }
             }
             block.sector = null;
@@ -261,9 +261,9 @@ class Generator {
         Data.blocksTable[x][y].colorWholeBlock(unselectedColor);
         Data.blocksTable[x][y].unselectColor = unselectedColor;
         Data.blocksTable[x][y].selectColor = selectedColor;
-        updateNeighList(x, y, sector.neighList, sector.ownedList);
+        updateNeighList(x, y, sector.neighBlocksList, sector.ownedList);
         for (int currSize = 1; currSize < size; currSize++) {
-            if (sector.neighList.isEmpty() && Data.fixList.isEmpty()) {
+            if (sector.neighBlocksList.isEmpty() && Data.fixList.isEmpty()) {
                 if (currSizeSector >= minSizeSector) {
                     sector.size = currSizeSector;
                     return true;
@@ -277,7 +277,7 @@ class Generator {
                 int tmp = -1;
                 do {
                     tmp++;
-                    nextBlock = rand.randomBlock(sector.neighList);
+                    nextBlock = rand.randomBlock(sector.neighBlocksList);
                 } while (tmp < 1000 && isBridge(nextBlock));
             } else {
                 nextBlock = (Block) Data.fixList.pop();
@@ -286,8 +286,8 @@ class Generator {
             nextBlock.colorWholeBlock(unselectedColor);
             nextBlock.unselectColor = unselectedColor;
             nextBlock.selectColor = selectedColor;
-            updateNeighList(nextBlock.x, nextBlock.y, sector.neighList, sector.ownedList);
-            updateFixList(sector.neighList, sector, Data.fixList);
+            updateNeighList(nextBlock.x, nextBlock.y, sector.neighBlocksList, sector.ownedList);
+            updateFixList(sector.neighBlocksList, sector, Data.fixList);
             currSizeSector++;
         }
         sector.size = currSizeSector;
@@ -310,7 +310,7 @@ class Generator {
 
                     sector = new Sector(counter);
                     Data.sectorList.add(sector);
-                    generate_sector(sizeSector, sector, new Color(red, green, blue, 128), new Color(red+64, green+64, blue+64, 192), startX, startY);
+                    generate_sector(sizeSector, sector, new Color(red, green, blue, 128), new Color(red + 64, green + 64, blue + 64, 192), startX, startY);
                 } else {
                     if (Data.fixList.isEmpty()) {
                         int tmp = -1;
@@ -327,7 +327,7 @@ class Generator {
                     }
                     sector = new Sector(counter);
                     Data.sectorList.add(sector);
-                    generate_sector(sizeSector, sector, new Color(red, green, blue, 178), new Color(red+64, green+64, blue+64, 192), startX, startY);
+                    generate_sector(sizeSector, sector, new Color(red, green, blue, 178), new Color(red + 64, green + 64, blue + 64, 192), startX, startY);
                 }
                 System.out.println("stworzylem " + counter + " sektor");
                 counter++;
@@ -360,11 +360,57 @@ class Generator {
         }
         return true;
     }
-    
+
     void makeSectorsBorder() {
         for (int i = 0; i < Data.sizeTable; i++) {
             for (int j = 0; j < Data.sizeTable; j++) {
                 Data.blocksTable[i][j].makeBorderBlock();
+            }
+        }
+    }
+
+    void createNeighListsSectors() {
+        for (int i = 0; i < Data.sizeTable; i++) {
+            for (int j = 0; j < Data.sizeTable; j++) {
+                Block block = Data.blocksTable[i][j];
+                Block rightBlock = null;
+                Block leftBlock = null;
+                Block upBlock = null;
+                Block downBlock = null;
+                if (i != Data.sizeTable - 1) {
+                    rightBlock = Data.blocksTable[i + 1][j];
+                }
+                if (i != 0) {
+                    leftBlock = Data.blocksTable[i - 1][j];
+                }
+                if (j != 0) {
+                    upBlock = Data.blocksTable[i][j - 1];
+                }
+                if (j != Data.sizeTable - 1) {
+                    downBlock = Data.blocksTable[i][j + 1];
+                }
+                
+                
+                if (rightBlock != null && block.sector != rightBlock.sector) {
+                    if (!block.sector.neighSectorsList.contains(rightBlock.sector)) {
+                        block.sector.neighSectorsList.add(rightBlock.sector);
+                    }
+                }
+                if (leftBlock != null && block.sector != leftBlock.sector) {
+                    if (!block.sector.neighSectorsList.contains(leftBlock.sector)) {
+                        block.sector.neighSectorsList.add(leftBlock.sector);
+                    }
+                }
+                if (upBlock != null && block.sector != upBlock.sector) {
+                    if (!block.sector.neighSectorsList.contains(upBlock.sector)) {
+                        block.sector.neighSectorsList.add(upBlock.sector);
+                    }
+                }
+                if (downBlock != null && block.sector != downBlock.sector) {
+                    if (!block.sector.neighSectorsList.contains(downBlock.sector)) {
+                        block.sector.neighSectorsList.add(downBlock.sector);
+                    }
+                }
             }
         }
     }
@@ -377,5 +423,6 @@ class Generator {
             generate(countSectors, sizeSector, null);
         } while (!correctMap());
         makeSectorsBorder();
+        createNeighListsSectors();
     }
 }

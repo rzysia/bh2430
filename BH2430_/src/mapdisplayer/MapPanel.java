@@ -64,11 +64,6 @@ public class MapPanel extends JPanel implements MouseListener {
         g.fillRect(0, 0, 768, 768);
 
         g2d = (Graphics2D) g;
-        //g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f));
-        //Rectangle2D.Double rect = new Rectangle2D.Double(0,0,768,768);
-        //g2d.setColor(new Color(0,0,0,0));
-        //g2d.fill(rect);
-        //System.out.println(Data.blocksTable[0][0].currColor);
         for (int row = 0; row < Data.blocksTable.length; row++) {
             for (int col = 0; col < Data.blocksTable.length; col++) {
                 for (int subrow = 0; subrow < 4; subrow++) {
@@ -77,7 +72,6 @@ public class MapPanel extends JPanel implements MouseListener {
                         g2d.fillRect((row * Data.sizeBlock)+(2*subrow), (col * Data.sizeBlock)+(2*subcol), 2, 2);
                     }
                 }
-                //System.out.println("Rysuję: "+row+" "+col+" "+Generator.blocksTable[row][col].sector+" "+Generator.blocksTable[row][col].currColor);
             }
         }
     }
@@ -97,7 +91,7 @@ public class MapPanel extends JPanel implements MouseListener {
             }
             selectedSector = whatSector(e);
             if (selectedSector != null) {
-                guiPanel.list.setSelectedIndex(selectedSector.id_sector - 1);
+                guiPanel.list.setSelectedIndex(selectedSector.idSector - 1);
             } else {
                 guiPanel.list.clearSelection();
             }
