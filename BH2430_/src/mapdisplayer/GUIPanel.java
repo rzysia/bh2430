@@ -151,11 +151,11 @@ public class GUIPanel extends JPanel implements MouseListener {
     }
 
     //funkcja zwraca sektor na podstawie jego nazwy
-    Sector whatSector(String name){
+    Sector whatSector(String name) {
         Sector sector;
         int i = 0;
         do {
-            sector = (Sector)Data.sectorList.get(i);
+            sector = (Sector) Data.sectorList.get(i);
             i++;
         } while (i <= Data.sectorList.size() && !sector.name.equals(name));
         return sector;
@@ -163,7 +163,18 @@ public class GUIPanel extends JPanel implements MouseListener {
 
     //funkcja tworzy blok informacji na podstawie sektora
     String sectorToInfo(Sector sector) {
-        String info = "Wybrałeś " + sector.name;
+        String info = "<html>";
+
+        info += "Nazwa: " + sector.name + "<br>";
+        info += "Konstelacja: " + sector.nameCon + "<br>";
+        info += "Właściciel: " + sector.nameOwner + "<br>";
+        info += "Wielkość: " + sector.size + "<br>";
+        info += "Armia: " + sector.army + "<br>";
+        for (int i = 0; i < sector.neighSectorsList.size(); i++) {
+            info += ((Sector) sector.neighSectorsList.get(i)).name + "<br>";
+        }
+
+        info += "</html>";
         return info;
     }
 
@@ -171,24 +182,17 @@ public class GUIPanel extends JPanel implements MouseListener {
     void displaySectorInfo(String info) {
         L_info.setText(info);
     }
-    
-    public 
-    
-    ListSelectionListener lls = new ListSelectionListener() {
-
+    public ListSelectionListener lls = new ListSelectionListener() {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             Object nazwa = e.getSource();
-            if (list.getSelectedValue() != null && nazwa.equals(list) && !((String)list.getSelectedValue()).equals(selectedname)) 
-            {
-                selectedname = (String)list.getSelectedValue();
-                if (mapPanel.selectedSector != null) 
-                {
+            if (list.getSelectedValue() != null && nazwa.equals(list) && !((String) list.getSelectedValue()).equals(selectedname)) {
+                selectedname = (String) list.getSelectedValue();
+                if (mapPanel.selectedSector != null) {
                     mapPanel.unselectSector(mapPanel.selectedSector);
                 }
                 mapPanel.selectedSector = whatSector(selectedname);
-                if (mapPanel.selectedSector != null) 
-                {
+                if (mapPanel.selectedSector != null) {
                     mapPanel.selectSector(mapPanel.selectedSector);
                 }
             }

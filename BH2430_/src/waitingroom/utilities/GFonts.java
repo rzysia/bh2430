@@ -27,9 +27,16 @@ public class GFonts {
      */
     public void setNormalFont(String path) throws FileNotFoundException{
         try {
+            try
+             {
              this.normal = Font.createFont(Font.TRUETYPE_FONT, new File(path));   
-        } catch (IOException|FontFormatException e) {
-             System.out.println("Cannot read normal True Type Font file!");
+            }       
+            catch (IOException e){
+                System.out.println("Cannot read normal True Type Font file!");
+            }
+            }  
+            catch(FontFormatException e) {
+                           System.out.println("Cannot read normal True Type Font file!");
              //throw new FileNotFoundException();
         }
     }
@@ -42,10 +49,17 @@ public class GFonts {
      */
     public void setItalicFont(String path) throws FileNotFoundException{
         try {
-             italic = Font.createFont(Font.TRUETYPE_FONT, new File(path));   
-        } catch (IOException|FontFormatException e) {
-             System.out.println("Cannot read italic True Type Font file!");
-             throw new FileNotFoundException();
+            try
+             {
+             this.italic = Font.createFont(Font.TRUETYPE_FONT, new File(path));   
+            }       
+            catch (IOException e){
+                System.out.println("Cannot read normal True Type Font file!");
+            }
+            }  
+            catch(FontFormatException e) {
+                           System.out.println("Cannot read normal True Type Font file!");
+             //throw new FileNotFoundException();
         }
     }
     
@@ -56,10 +70,17 @@ public class GFonts {
      */
     public void setBoldFont(String path) throws FileNotFoundException{
         try {
-             bold = Font.createFont(Font.TRUETYPE_FONT, new File(path));   
-        } catch (IOException|FontFormatException e) {
-             System.out.println("Cannot read bold True Type Font file!");
-             throw new FileNotFoundException();
+            try
+             {
+             this.bold = Font.createFont(Font.TRUETYPE_FONT, new File(path));   
+            }       
+            catch (IOException e){
+                System.out.println("Cannot read normal True Type Font file!");
+            }
+            }  
+            catch(FontFormatException e) {
+                           System.out.println("Cannot read normal True Type Font file!");
+             //throw new FileNotFoundException();
         }
     }
     
