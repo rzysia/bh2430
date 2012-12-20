@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+<<<<<<< HEAD
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
         <file>file:/D:/bh2430/bh2430/BH2430_/src/mapdisplayer/GameMain.java</file>
         <file>file:/D:/bh2430/bh2430/BH2430_/src/mapdisplayer/Generator.java</file>
@@ -12,4 +13,6 @@
         <file>file:/D:/bh2430/bh2430/BH2430_/src/mapdisplayer/MapPanel.java</file>
         <file>file:/D:/bh2430/bh2430/BH2430_/src/mapdisplayer/Data.java</file>
     </open-files>
+=======
+>>>>>>> i002_z016
 </project-private>

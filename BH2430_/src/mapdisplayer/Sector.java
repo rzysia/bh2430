@@ -3,7 +3,7 @@ package mapdisplayer;
 import java.util.LinkedList;
 
 //klasa przechowująca dane o sektorze
-class Sector {
+public class Sector {
 
     //nazwa sektora
     String name;
@@ -20,7 +20,11 @@ class Sector {
     //wielkość sektora
     int size;
     //ilość jednostek
+<<<<<<< HEAD
     int army;
+=======
+    public int army;
+>>>>>>> i002_z016
     //lista bloków sąsiadujących z sektorem (potrzebna generatorowi)
     LinkedList neighBlocksList;
     //lista sektorów sąsiadujących
@@ -39,5 +43,25 @@ class Sector {
         idCon = 0;
         nameCon = "Nieznana";
         size = 0;
+<<<<<<< HEAD
+=======
+        army=10;
     }
+    
+    //sprawdza czy dany sektor jest sąsiadem
+    public boolean isNeighbour(Sector sector_to)
+    {
+        int size = neighSectorsList.size();
+        for(int i=0; i<size; i++)
+        {
+            Sector isNeighbour = (Sector) neighSectorsList.get(i);
+            if(sector_to.equals(isNeighbour))
+            {
+                return true;
+            }
+        }
+        return false;
+>>>>>>> i002_z016
+    }
+
 }

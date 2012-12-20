@@ -183,6 +183,7 @@ public class GUIPanel extends JPanel implements MouseListener {
         L_info.setText(info);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
     void setRound(String whichRound) {
@@ -190,6 +191,8 @@ public class GUIPanel extends JPanel implements MouseListener {
     }
     
 >>>>>>> i002_z005_z006
+=======
+>>>>>>> i002_z016
     public ListSelectionListener lls = new ListSelectionListener() {
         @Override
         public void valueChanged(ListSelectionEvent e) {

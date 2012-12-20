@@ -1,5 +1,6 @@
 package mapdisplayer;
 
+import Engine.ArmyTransportStage;
 import javax.swing.JPanel;
 
 import java.awt.Color;
@@ -14,6 +15,9 @@ public class MapPanel extends JPanel implements MouseListener {
     Graphics2D g2d;
     GUIPanel guiPanel;
     Sector selectedSector;
+    Sector targetSector;
+    //zmienna uniemożliwiająca klikanie oraz zaznaczenie innego sektora
+    public boolean clickLocked;
     //funkcja określa część okna gry przeznaczoną na wyświetlanie mapy
 
     MapPanel() {
@@ -78,6 +82,8 @@ public class MapPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(clickLocked==true)
+            return;
     }
 
     //podczas kliknięcia poprzedni sektor jest odznaczany, a kliknięty jest zaznaczany
@@ -85,6 +91,8 @@ public class MapPanel extends JPanel implements MouseListener {
     //oraz realizuje operację czyszczenia zaznaczeń w przypadku kliknięcia w miejsce puste
     @Override
     public void mousePressed(MouseEvent e) {
+        if(clickLocked==true)
+            return;
         if (whatSector(e) != selectedSector) {
             if (selectedSector != null) {
                 unselectSector(selectedSector);
@@ -102,11 +110,42 @@ public class MapPanel extends JPanel implements MouseListener {
             }
         }
     }
-
+/*
+ * wywołuje funkcje transportu wojska pod warunkiem czy sektor należy do tego samego gracza 
+   oraz  czy jest w sąsiedztwie
+ */
     @Override
     public void mouseReleased(MouseEvent e) {
+    if(clickLocked==true)
+            return;
+        if (whatSector(e) != selectedSector) {
+            
+            targetSector = whatSector(e);
+            
+            if (selectedSector != null && targetSector !=null) {
+                if(selectedSector.idOwner==targetSector.idOwner)
+                    {
+                     System.out.print(selectedSector.neighSectorsList.size());
+                    boolean neighbour=false;
+                    neighbour=selectedSector.isNeighbour(targetSector);
+                    if(neighbour==true)
+                        {  
+                           clickLocked=true; 
+                           ArmyTransportStage transport =new ArmyTransportStage(selectedSector,targetSector,this );
+                           transport.army_transport();
+                           //clickLocked=false; 
+                        }  
+                    }
+            } else {
+                guiPanel.list.clearSelection();
+            }
+            if (selectedSector != null) {
+                selectSector(selectedSector);
+                String info = guiPanel.sectorToInfo(selectedSector);
+                guiPanel.displaySectorInfo(info);
+            }
+        }
     }
-
     @Override
     public void mouseEntered(MouseEvent e) {
     }
