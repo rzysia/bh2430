@@ -1,5 +1,6 @@
 package mapdisplayer;
 
+import Engine.Player;
 import java.util.LinkedList;
 
 import java.awt.Color;
@@ -9,10 +10,15 @@ class Data {
     static LinkedList sectorList;
     static Block[][] blocksTable;
     static LinkedList fixList;
+<<<<<<< HEAD
     static int sizeBlock;
     static int sizeTable;
     static int countSectors;
     static int sizeSector;
+=======
+    static boolean notFinished; //ta zmienna do kontroli czy gra się nie skończyła
+    static LinkedList players = new LinkedList<Player>();;
+>>>>>>> i002_z005_z006
     
     Data (int sizeBlock, int countSectors){
         //inicjalizacja wielkości bloku

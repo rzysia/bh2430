@@ -182,6 +182,14 @@ public class GUIPanel extends JPanel implements MouseListener {
     void displaySectorInfo(String info) {
         L_info.setText(info);
     }
+<<<<<<< HEAD
+=======
+
+    void setRound(String whichRound) {
+        L_etap.setText(whichRound);
+    }
+    
+>>>>>>> i002_z005_z006
     public ListSelectionListener lls = new ListSelectionListener() {
         @Override
         public void valueChanged(ListSelectionEvent e) {
@@ -234,6 +242,7 @@ public class GUIPanel extends JPanel implements MouseListener {
                 String karty = "";
                 //karty += currentPlayer.pokazKarty();
                 karty = "POKAZALEM KARTY: BLABLABLA";
+                setRound("Etap: kart");
                 L_info.setText(karty);
                 repaint();
             } else if (e.getButton() == 3) {
