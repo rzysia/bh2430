@@ -182,17 +182,11 @@ public class GUIPanel extends JPanel implements MouseListener {
     void displaySectorInfo(String info) {
         L_info.setText(info);
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
     void setRound(String whichRound) {
         L_etap.setText(whichRound);
     }
-    
->>>>>>> i002_z005_z006
-=======
->>>>>>> i002_z016
+
     public ListSelectionListener lls = new ListSelectionListener() {
         @Override
         public void valueChanged(ListSelectionEvent e) {
@@ -226,6 +220,13 @@ public class GUIPanel extends JPanel implements MouseListener {
                 //TUTAJ WYWOLANIE FUNKCJI, KTORA BEDZIE NOWA TURA DLA NASTEPNEGO GRACZA - ona musi też zmianiać listę sektorów,
                 //wyświatlaną mapę, ustawiać text w info na jakiś domyślny, funkcja z tura bedzie też modyfikowała text w L_etap
 
+                if(Data.whichStage == 1)
+                    war(currentPlayer);
+                else if (Data.whichStage == 2)
+                    transport(currentPlayer);
+                else if(Data.whichStage == 3)
+                    
+                
                 L_endTurnA.setVisible(true);
                 repaint();
             } else if (e.getButton() == 3) {
@@ -330,5 +331,84 @@ public class GUIPanel extends JPanel implements MouseListener {
 
         //this.add(list);
         this.add(sp);
+    }
+    //***********************************************************************
+    //      tury i tak dalej
+    
+        //ta funkcja będzie wywoływała po kolei graczy
+    /*
+     *  Potrzebuje:
+     *      - gdzieś listę graczy - konieczne przekazanie slity graczy z poczekalni do gry!!
+     * 
+     *      - powyższe najlepiej w formie tablicy albo jakieś kolejki - ona będzie najbardziej spoko,
+     *        po zakończeniu tury przez gracza wywoła się funkcja z turą od lista.next albo coś w ten deseń
+     *        (na razie tworzę sobie prowizoryczną listę, na potrzeby zadania - w klasie Data)
+     * 
+     *      - potrzebna też jest jakaś zmienna, która będzie kontrolowała warunki zakończenia gry - i sterowana przez 
+     *        zmienna boolowska, coś w stylu "notFinished" - gry gra sie toczy, zmienna ma wartosc true, jezeli gra sie
+     *        skończy, zmienna bedzie miała wartość false. Ona będzie zwracana przez właśnie funkcję tury, ta z kolei pod 
+     *        swego działania będzie sprawdzać dwa warunki - czy się wszyscy gracze nie poddali (myślę, że można dać taką opcję,
+     *        (coć na pewno nie jest konieczna) oraz czy jest co najmniej dwóch właścicieli sektorów (wydaje mi się, że nie ma 
+     *        co przegranych graczy wywalać z listy, niech mają jakąś laurkę na końcu
+     * 
+     */
+        int currentId = -1;
+    public void startGame() {
+
+        int playersCount = Data.players.size();
+        System.out.println(playersCount);
+        if(Data.notFinished){
+            currentId = (currentId + 1) % playersCount;
+            round((Player)Data.players.get(currentId));
+        }
+    }
+
+    private boolean round(Player player) {
+        System.out.println("Zaczynamy nowa ture");
+        //najpierw przyrost jednostek, potem po kolei etapy - karty, walka, transport
+        //każdy etam kończy się naciśnięciem przycisku z klepsydrą (na razie, może się zmajstruje osobny przycisk do
+        //etapow, ale w sumie po co?
+        System.out.println("Zaczyna się tura");
+        addUnits();
+        this.currentPlayer = player;
+        this.cards(player);
+        
+        return true;
+    }
+
+    //dodawanie jednostek
+    /*
+     * LinkedList niestety nie jest pomysłem dobrym - należałoby raczej zaimplementować coś, co ją rozszerza, ale niemal 
+     * na pewno nie powinniśmy korzystać bezpośrednio z LinkedList. Można w prawdzie robić rzutowania, a cudowność javy 
+     * pozwala nam nie robić nowego obiektu jako kopii starego i nadpisywać, ale czy nie lepiej zaimplementować własne?
+     * 
+     */
+    private void addUnits() {
+        Sector current;
+        for (int i = 0; i < Data.sectorList.size(); i++){
+            current = (Sector)Data.sectorList.get(i);
+            if(current.idOwner != 0)
+                current.newUnits();
+        }    //Data.sectorList.get(i)
+            //no i tutaj przyda się spacer po wszystkich sektorach i wywołanie dla każdego z nich funkcji
+            //ktora odpowiada za produkcję nowych jednostek
+            ;
+    }
+    
+    public void cards(Player player) {
+        this.setRound("Etap: karty");
+        Data.whichStage = 1;
+        //tutaj proponuję nowe okienko z kartami, albo lista kart w labelu info (tak się chyba zowie)  
+        //i po kliknięciu np prawym nowe okienko z rysunkiem karty - standardowo, jak w pokemonach - obrazek i pod nim opis :P
+    }
+
+    public void war(Player player) {
+        this.setRound("Etap: ekspansja");
+        Data.whichStage = 2;
+    }
+
+    public void transport(Player player) {
+        this.setRound("Etap: transport");
+        Data.whichStage = 3;
     }
 }

@@ -1,13 +1,12 @@
 package mapdisplayer;
 
 import Engine.ArmyTransportStage;
-import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.JPanel;
 
 //klasa odpowiadająca za wyświetlanie panelu mapy
 public class MapPanel extends JPanel implements MouseListener {
@@ -118,7 +117,7 @@ public class MapPanel extends JPanel implements MouseListener {
     public void mouseReleased(MouseEvent e) {
     if(clickLocked==true)
             return;
-        if (whatSector(e) != selectedSector) {
+        if ((whatSector(e) != selectedSector) && Data.whichStage == 3){
             
             targetSector = whatSector(e);
             

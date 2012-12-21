@@ -10,21 +10,18 @@ class Data {
     static LinkedList sectorList;
     static Block[][] blocksTable;
     static LinkedList fixList;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> i002_z016
+
     static int sizeBlock;
     static int sizeTable;
     static int countSectors;
     static int sizeSector;
-<<<<<<< HEAD
-=======
+    
+    //zmienna, ktora mowi ktory jest etap - 1, 2 czy 3.
+    //1 = etap kart, 2 = etap walki, 3 = etap transportu
+    static int whichStage;
     static boolean notFinished; //ta zmienna do kontroli czy gra się nie skończyła
     static LinkedList players = new LinkedList<Player>();;
->>>>>>> i002_z005_z006
-=======
->>>>>>> i002_z016
+
     
     Data (int sizeBlock, int countSectors){
         //inicjalizacja wielkości bloku
@@ -47,4 +44,5 @@ class Data {
             }
         }
     }
+    
 }

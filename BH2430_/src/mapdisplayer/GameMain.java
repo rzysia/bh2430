@@ -15,7 +15,7 @@ public class GameMain {
 
             @Override
             public void run() {
-                new GameFrame();
+                GameFrame gf = new GameFrame();
             }
         });
     }
