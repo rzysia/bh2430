@@ -46,6 +46,7 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
     
     private BH2430_ window;
 
+    private CreatePlayersComponent komponent;
     
     /**
      * Tworzy ten panel i wylącza go gdy błąd
@@ -90,7 +91,7 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
             this.window = window;
             
         //dodanie panela tworzącego graczy
-            CreatePlayersComponent komponent = new CreatePlayersComponent(ginfo, playerIcon);
+            komponent = new CreatePlayersComponent(ginfo, playerIcon);
             komponent.create();
             this.add(komponent);
             
@@ -116,6 +117,8 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
             } break;
                 
             case 2: {
+                
+                this.komponent.getNations();
                 
                 this.window.mainMenu = new MainMenuPanel(this.window);
                 this.window.add(this.window.mainMenu);
@@ -265,5 +268,9 @@ public class WaitingRoomPanel extends javax.swing.JPanel {
            g2d.setFont(ginfo.fonts.getNormal().deriveFont(48.0f));
            g2d.setColor(Color.GREEN);
            g2d.drawString("POCZEKALNIA",20,80);
+    }
+    
+    public String[] getNations(){
+        return this.komponent.getNations();
     }
 }

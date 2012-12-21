@@ -150,8 +150,15 @@ public class CreatePlayersComponent extends JComponent implements ActionListener
         
     }
     
-    public JComboBox[] getNations(){
-        return nations;
+    public String[] getNations(){
+        
+        String[] tab = new String[6];
+        
+        for(int i = 0; i < (counter + 1); i++){
+            tab[i] = nations[i].getSelectedItem().toString();
+        }
+        
+        return tab;
     }
     
     public int getNumberOfPlayers(){
