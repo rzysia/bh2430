@@ -20,11 +20,7 @@ public class Sector {
     //wielkość sektora
     int size;
     //ilość jednostek
-<<<<<<< HEAD
-    int army;
-=======
     public int army;
->>>>>>> i002_z016
     //lista bloków sąsiadujących z sektorem (potrzebna generatorowi)
     LinkedList neighBlocksList;
     //lista sektorów sąsiadujących
@@ -43,8 +39,6 @@ public class Sector {
         idCon = 0;
         nameCon = "Nieznana";
         size = 0;
-<<<<<<< HEAD
-=======
         army=10;
     }
     
@@ -61,7 +55,6 @@ public class Sector {
             }
         }
         return false;
->>>>>>> i002_z016
     }
 
 }

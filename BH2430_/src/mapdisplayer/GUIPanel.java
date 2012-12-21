@@ -182,17 +182,11 @@ public class GUIPanel extends JPanel implements MouseListener {
     void displaySectorInfo(String info) {
         L_info.setText(info);
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
     void setRound(String whichRound) {
         L_etap.setText(whichRound);
     }
     
->>>>>>> i002_z005_z006
-=======
->>>>>>> i002_z016
     public ListSelectionListener lls = new ListSelectionListener() {
         @Override
         public void valueChanged(ListSelectionEvent e) {

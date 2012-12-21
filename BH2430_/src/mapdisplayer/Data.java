@@ -10,21 +10,13 @@ class Data {
     static LinkedList sectorList;
     static Block[][] blocksTable;
     static LinkedList fixList;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> i002_z016
+    
     static int sizeBlock;
     static int sizeTable;
     static int countSectors;
     static int sizeSector;
-<<<<<<< HEAD
-=======
     static boolean notFinished; //ta zmienna do kontroli czy gra się nie skończyła
-    static LinkedList players = new LinkedList<Player>();;
->>>>>>> i002_z005_z006
-=======
->>>>>>> i002_z016
+    static LinkedList players = new LinkedList<Player>();
     
     Data (int sizeBlock, int countSectors){
         //inicjalizacja wielkości bloku
